@@ -1,26 +1,36 @@
 package dev.playsit.ui.modules.feed
 
-import android.util.Log
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import dev.playsit.core.utils.toLiveData
 import dev.playsit.model.Board
 import dev.playsit.model.Compilation
 import dev.playsit.model.Feed
+import dev.playsit.repository.CompilationSource
 import dev.playsit.repository.FeedRepository
+import dev.playsit.ui.modules.feed.compilations.CompilationProvider
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(private val repository: FeedRepository) : ViewModel() {
 
-    private val _compilations = MutableLiveData<Compilation>()
-    val compilations = _compilations.toLiveData()
+    private val _compilations = MutableLiveData<MutableList<CompilationProvider>>()
+    val compilations: LiveData<MutableList<CompilationProvider>> = _compilations
 
+    private val _feed = flow<Feed> { repository.getFeed() }
+//    val fee = _compilations.toLiveData()
+
+//    val popularCompilation =  CompilationProvider()
+    val popularList by lazy {
+        Pager(PagingConfig(10)) {
+            CompilationSource(repository, "popular")
+        }.flow
+    }
     private val _popularCompilation = MutableLiveData<Compilation>()
     val popularCompilation = _popularCompilation.toLiveData()
 
@@ -77,7 +87,10 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
                 try {
                     _loadState.value = true
                     it.offset += ITEMS_PER_PAGE
-                    setCompilation(repository.getCompilationWithOffset(it.slug, it.offset))
+                    val resp = repository.getCompilationWithOffset(it.slug, it.items.size)
+//                    _compilations.value?.items?.addAll(resp.items)
+
+//                    setCompilation(repository.getCompilationWithOffset(it.slug, it.items.size))
                 } catch (error: Throwable) {
                     _errorState.value = error.message
                 } finally {
@@ -108,10 +121,11 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
     private fun getFeed() {
         viewModelScope.launch {
             try {
+
                 _spinner.value = true
                 val feed = repository.getFeed()
-                Log.d("TEST_VM", "feed ${feed.toString()}")
-                _compilations.value = feed.compilations[0]
+//                _feed.emit(feed)
+//                _compilations.value = feed.compilations[0]
 //        val feed = repository.getFakeFeed()
                 setupCompilations(feed)
                 setupBoards(feed)
@@ -124,26 +138,31 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
     }
 
     private fun setupCompilations(feed: Feed) {
-        val compilations = feed.compilations.toMutableList()
-        val iterator = compilations.iterator()
-        while (iterator.hasNext()) {
-            val compilation = iterator.next()
-            when (compilation.slug) {
-                Compilation.SLUG_POPULAR -> {
-                    _popularCompilation.value = compilation
-                    iterator.remove()
-                }
-                Compilation.SLUG_VIDEO -> {
-                    _videoCompilation.value = compilation
-                    iterator.remove()
-                }
-            }
+        val list = feed.compilations.toMutableList()
+        var providerList = mutableListOf<CompilationProvider>()
+        list.forEach {
+            providerList.add(CompilationProvider(it, repository))
         }
-        compilations.forEach {
-            _otherCompilations.value?.add(MutableLiveData(it))
+        _compilations.value = providerList
+//        val iterator = compilations.iterator()
+//        while (iterator.hasNext()) {
+//            val compilation = iterator.next()
+//            when (compilation.slug) {
+//                Compilation.SLUG_POPULAR -> {
+//                    _popularCompilation.value = compilation
+//                    iterator.remove()
+//                }
+//                Compilation.SLUG_VIDEO -> {
+//                    _videoCompilation.value = compilation
+//                    iterator.remove()
+//                }
+//            }
         }
-        _otherCompilations.value = _otherCompilations.value
-    }
+//        compilations.forEach {
+////            _otherCompilations.value?.add(MutableLiveData(CompilationProvider(it, repository)))
+//        }
+//        _otherCompilations.value = _otherCompilations.value
+//    }
 
     private fun setupBoards(feed: Feed) {
         val boards = feed.boards.toMutableList()
@@ -151,10 +170,10 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
         boards.forEach {
             if (it.pos != null) ourBoards.add(it)
         }
-        _ourBoards.value = ourBoards
-
-        boards.removeAll(ourBoards)
-        _userBoards.value = boards
+//        _ourBoards.value = ourBoards
+//
+//        boards.removeAll(ourBoards)
+//        _userBoards.value = boards
     }
 
     companion object {

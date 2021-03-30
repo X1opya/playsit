@@ -3,8 +3,6 @@ package dev.playsit.core.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.components.SingletonComponent
 import dev.playsit.core.network.ApiService
 import okhttp3.Interceptor
@@ -13,15 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Qualifier
 import javax.inject.Singleton
-
-//@Qualifier
-//annotation class HeaderInterceptorOkHttpClient
-//
-//@Qualifier
-//annotation class LoggingInterceptorOkHttpClient
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -35,19 +25,15 @@ internal object HttpModule {
     @Provides
     fun provideOkhttpClient(
         headerInterceptor: Interceptor
-    ) : OkHttpClient = OkHttpClient.Builder()
-//        .addInterceptor(loggingInterceptor)
+    ): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .addInterceptor(headerInterceptor)
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(TIMEOUT, TimeUnit.SECONDS)
         .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
         .build()
-
-//    @Provides
-//    @Named("base")
-//    fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
-//        level = HttpLoggingInterceptor.Level.BODY
-//    }
 
     @Provides
     @Singleton
