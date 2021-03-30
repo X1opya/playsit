@@ -13,12 +13,13 @@ import com.google.accompanist.coil.CoilImage
 fun GameImageCard(
     uri: String?,
     rating: Float?,
-    imageType: ImageType = ImageType.Small
+    imageType: ImageType = ImageType.Small,
+    modifier: Modifier = Modifier
 ) {
     val width = getImageWidth(imageType)
     val height = getImageHeight(imageType)
     uri ?: return
-    Box {
+    Box(modifier = Modifier.then(modifier)) {
         CoilImage(
             data = uri,
             modifier = Modifier

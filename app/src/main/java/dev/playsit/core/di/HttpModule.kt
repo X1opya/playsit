@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.components.SingletonComponent
 import dev.playsit.core.network.ApiService
 import okhttp3.Interceptor
@@ -12,18 +13,19 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
-@Qualifier
-annotation class HeaderInterceptorOkHttpClient
-
-@Qualifier
-annotation class LoggingInterceptorOkHttpClient
+//@Qualifier
+//annotation class HeaderInterceptorOkHttpClient
+//
+//@Qualifier
+//annotation class LoggingInterceptorOkHttpClient
 
 @Module
 @InstallIn(SingletonComponent::class)
-object HttpModule {
+internal object HttpModule {
 
     const val TIMEOUT = 30L
     const val BASE_URL = "https://api.playsit.app/"
@@ -31,29 +33,24 @@ object HttpModule {
     const val SECRET_KEY = "ce80622bf18fd1f0375bd9e192a62f436a38c7cd"
 
     @Provides
-    @Singleton
     fun provideOkhttpClient(
-        @LoggingInterceptorOkHttpClient loggingInterceptor: Interceptor,
-        @HeaderInterceptorOkHttpClient headerInterceptor: Interceptor
+        headerInterceptor: Interceptor
     ) : OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
+//        .addInterceptor(loggingInterceptor)
         .addInterceptor(headerInterceptor)
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         .readTimeout(TIMEOUT, TimeUnit.SECONDS)
         .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
         .build()
 
-    @Provides
-    @Singleton
-    @LoggingInterceptorOkHttpClient
-    fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
+//    @Provides
+//    @Named("base")
+//    fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
+//        level = HttpLoggingInterceptor.Level.BODY
+//    }
 
     @Provides
     @Singleton
-    @HeaderInterceptorOkHttpClient
     fun provideHeaderInterceptor() = Interceptor { chain ->
         val original = chain.request()
         val request = original.newBuilder()
