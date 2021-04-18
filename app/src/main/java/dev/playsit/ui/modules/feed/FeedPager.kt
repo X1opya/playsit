@@ -18,20 +18,20 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.*
 import dev.playsit.R
-import dev.playsit.ui.theme.SelectTabColor
-import dev.playsit.ui.theme.WhiteTextColor
-import dev.playsit.ui.theme.UnSelectTabColor
-import dev.playsit.ui.theme.UnSelectTabTextColor
+import dev.playsit.ui.theme.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun FeedPager(content: @Composable BoxScope.() -> Unit) {
+fun FeedPager(content: @Composable () -> Unit) {
     val pages = listOf(
         stringResource(R.string.collectionsTitle),
         stringResource(R.string.boardsTitle)
     )
-    Column(Modifier.fillMaxSize()) {
+    Column(
+//        Modifier
+//            .fillMaxSize()
+    ) {
         val coroutineScope = rememberCoroutineScope()
         val pagerState = rememberPagerState(pageCount = pages.size)
         TabRow(
@@ -44,7 +44,12 @@ fun FeedPager(content: @Composable BoxScope.() -> Unit) {
                 )
             },
             modifier = Modifier
-                .padding(20.dp)
+                .padding(
+                    bottom = BaseAppDimen,
+                    start = BaseAppDimen,
+                    end = BaseAppDimen,
+                    top = 0.dp
+                )
                 .clip(RoundedCornerShape(10.dp)),
             backgroundColor = UnSelectTabColor
 
@@ -68,32 +73,39 @@ fun FeedPager(content: @Composable BoxScope.() -> Unit) {
                     modifier = Modifier
                         .size(153.dp, 48.dp)
                         .clip(RoundedCornerShape(10.dp))
-                        .background(getTabBackgroundColor(isSelected)),
+                        .background(getTabBackgroundColor(isSelected))
+                        .weight(1f),
                     selectedContentColor = SelectTabColor,
                     unselectedContentColor = UnSelectTabColor
                 )
             }
         }
 
+        Divider(color = DividerColor)
+
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.weight(1f)
-        ) { page ->
-            Box(modifier = Modifier.fillMaxSize()) {
-                Box(
-                    Modifier
-                        .fillMaxSize()
-                        .align(Alignment.Center)
-                ) {
-                    if (page == 0) {
-                        content()
-                    } else {
-                        Text(
-                            text = "Page: 2",
-                            style = MaterialTheme.typography.h4,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
+            Modifier
+                .height(1700.dp),
+//            reverseLayout = true
+        ) { index ->
+            Column(
+                Modifier
+                    .fillMaxHeight()
+//                                    .verticalScroll(rememberScrollState())
+//                    .align(Alignment.Center)
+            ) {
+                if (index == 0) {
+                    content()
+                } else {
+//                    repeat(30) {
+//                        Text(
+//                            text = "Page: 2",
+//                            style = MaterialTheme.typography.h4,
+//                            modifier = Modifier,
+//                            color = Color.White
+//                        )
+//                    }
                 }
             }
         }

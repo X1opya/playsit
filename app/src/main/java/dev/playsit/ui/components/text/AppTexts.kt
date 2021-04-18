@@ -20,8 +20,7 @@ fun DefaultBoldText(text: String, fontSize: TextUnit, modifier: Modifier = Modif
         color = WhiteTextColor,
         modifier = Modifier.then(modifier),
         overflow = TextOverflow.Ellipsis,
-        maxLines = 1,
-        textAlign = TextAlign.Center
+        maxLines = 1
     )
 }
 

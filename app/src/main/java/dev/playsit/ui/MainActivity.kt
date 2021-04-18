@@ -5,8 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.playsit.ui.modules.MainScreen
 import dev.playsit.ui.modules.feed.DiscoverViewModel
@@ -25,10 +26,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background,
                     contentColor = MaterialTheme.colors.background
                 ) {
-                    MainScreen(discoverViewModel)
+                    val navController = rememberNavController()
+                    MainScreen(discoverViewModel, navController)
+//                    MainScreen(discoverViewModel)
                 }
             }
         }
+        discoverViewModel.getFeed()
     }
 }
 

@@ -27,7 +27,7 @@ internal object HttpModule {
         headerInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = HttpLoggingInterceptor.Level.BASIC
         })
         .addInterceptor(headerInterceptor)
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)

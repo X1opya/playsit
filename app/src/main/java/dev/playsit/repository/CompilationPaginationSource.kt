@@ -6,10 +6,10 @@ import androidx.paging.PagingState
 import dev.playsit.model.FeedItem
 import java.lang.Exception
 
-class CompilationSource(private val repository: FeedRepository, val slug: String) :
+class CompilationPaginationSource(private val repository: FeedRepository, val slug: String) :
     PagingSource<Int, FeedItem>() {
 
-    override fun getRefreshKey(state: PagingState<Int, FeedItem>): Int? = 0
+    override fun getRefreshKey(state: PagingState<Int, FeedItem>): Int? = 5
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FeedItem> {
         return try {
@@ -17,6 +17,7 @@ class CompilationSource(private val repository: FeedRepository, val slug: String
             LoadResult.Page
             val compilations =
                 repository.getCustomCompilation(slug, currentOffset!!)
+            Log.d("TEST_LOAD", "key $currentOffset")
             if (compilations?.isLast == true) currentOffset = null
             LoadResult.Page(
                 compilations!!.items,

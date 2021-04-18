@@ -19,17 +19,17 @@ fun GameImageCard(
     val width = getImageWidth(imageType)
     val height = getImageHeight(imageType)
     uri ?: return
-    Box(modifier = Modifier.then(modifier)) {
+    Box(modifier = Modifier.then(modifier)
+        .size(width, height)) {
         CoilImage(
             data = uri,
             modifier = Modifier
                 .size(width, height)
                 .clip(RoundedCornerShape(16.dp)),
             contentDescription = null,
-            contentScale = ContentScale.Crop
-        ) {
-        }
-
+            contentScale = ContentScale.Crop,
+            fadeIn = true
+        )
         rating?.let {
             Box(modifier = Modifier.padding(10.dp)) {
                 RatingCard(rating = rating)

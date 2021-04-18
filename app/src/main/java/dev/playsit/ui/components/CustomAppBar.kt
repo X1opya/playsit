@@ -5,18 +5,20 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.playsit.ui.theme.BaseAppDimen
 
 @Composable
-fun AppBarr(title: String) {
+fun CustomAppBar(title: String) {
     TopAppBar(
         title = {
             Column(
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxHeight()
+//                modifier = Modifier.fillMaxHeight()
             ) {
                 Text(
                     text = title,
@@ -24,6 +26,6 @@ fun AppBarr(title: String) {
                 )
             }
         },
-        modifier = Modifier.height(80.dp)
+        Modifier.padding(bottom = 16.dp, start = 8.dp)
     )
 }

@@ -2,8 +2,6 @@ package dev.playsit.ui.components.gameCards
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -22,9 +20,13 @@ import dev.playsit.ui.theme.UnSelectTabColor
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun GameCard(feedItem: FeedItem, cardType: ImageType, hasGenre: Boolean) {
-    ConstraintLayout {
-
+fun GameCard(
+    feedItem: FeedItem,
+    cardType: ImageType,
+    hasGenre: Boolean,
+    onClick: (id: Int) -> Unit
+) {
+    ConstraintLayout(Modifier.clickable { onClick(feedItem.id) }) {
         val (image, title, genreList) = createRefs()
         GameImageCard(
             uri = feedItem.cover,
@@ -57,13 +59,13 @@ fun GameCard(feedItem: FeedItem, cardType: ImageType, hasGenre: Boolean) {
 
 @Composable
 fun GenreCardList(genres: List<String>, modifier: Modifier) {
-    LazyRow(
+    Row(
         horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth(0.5f)
             .then(modifier)
     ) {
-        items(genres) { genre ->
+        genres.forEach { genre ->
             GenreCard(genre = genre)
             Spacer(modifier = Modifier.padding(5.dp))
         }

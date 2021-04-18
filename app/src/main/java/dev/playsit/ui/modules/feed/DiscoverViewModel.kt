@@ -1,14 +1,11 @@
 package dev.playsit.ui.modules.feed
 
 import androidx.lifecycle.*
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.playsit.core.utils.toLiveData
 import dev.playsit.model.Board
 import dev.playsit.model.Compilation
 import dev.playsit.model.Feed
-import dev.playsit.repository.CompilationSource
 import dev.playsit.repository.FeedRepository
 import dev.playsit.ui.modules.feed.compilations.CompilationProvider
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,14 +20,6 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
     val compilations: LiveData<MutableList<CompilationProvider>> = _compilations
 
     private val _feed = flow<Feed> { repository.getFeed() }
-//    val fee = _compilations.toLiveData()
-
-//    val popularCompilation =  CompilationProvider()
-    val popularList by lazy {
-        Pager(PagingConfig(10)) {
-            CompilationSource(repository, "popular")
-        }.flow
-    }
     private val _popularCompilation = MutableLiveData<Compilation>()
     val popularCompilation = _popularCompilation.toLiveData()
 
@@ -52,14 +41,14 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
     private val _userBoards = MutableLiveData<List<Board>>()
     val userBoards = _userBoards.toLiveData()
 
-    private val _loadState = MutableLiveData<Boolean>()
-    val loadState = _loadState.toLiveData()
+    val _isLoading = MutableStateFlow<Boolean>(false)
+//    val loadState by _loadState.collectAsState()
 
     init {
-        getFeed()
+//        getFeed()
     }
 
-    fun isLoading() = _loadState.value == true
+    fun isLoading() = _isLoading.value == true
 
     fun observeCompilation(
         compilation: Compilation,
@@ -85,7 +74,7 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
             if (it.isLast) return
             viewModelScope.launch {
                 try {
-                    _loadState.value = true
+                    _isLoading.emit(true)
                     it.offset += ITEMS_PER_PAGE
                     val resp = repository.getCompilationWithOffset(it.slug, it.items.size)
 //                    _compilations.value?.items?.addAll(resp.items)
@@ -94,7 +83,7 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
                 } catch (error: Throwable) {
                     _errorState.value = error.message
                 } finally {
-                    _loadState.value = false
+                    _isLoading.emit(false)
                 }
             }
         }
@@ -118,10 +107,10 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
         mutableLiveData.value = mutableLiveData.value
     }
 
-    private fun getFeed() {
+    fun getFeed() {
         viewModelScope.launch {
             try {
-
+                _isLoading.emit(true)
                 _spinner.value = true
                 val feed = repository.getFeed()
 //                _feed.emit(feed)
@@ -132,6 +121,8 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
             } catch (error: Throwable) {
                 _errorState.value = error.message
             } finally {
+
+                _isLoading.emit(false)
                 _spinner.value = false
             }
         }

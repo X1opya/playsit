@@ -17,3 +17,5 @@ val UnSelectTabTextColor = Color(0xff8e8e93)
 val RatingColorHigh = Color(0xff0fc545)
 val RatingColorMedium = Color(0xfffcb817)
 val RatingColorLow = Color.Red
+//
+val DividerColor = Color(0xff2c2c2c)
