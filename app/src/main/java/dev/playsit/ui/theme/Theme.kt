@@ -32,7 +32,7 @@ onSurface = Color.Black,
 )
 
 @Composable
-fun PlaysitTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun PlaysitTheme(content: @Composable() () -> Unit) {
     val colors = LightColorPalette
 
     MaterialTheme(

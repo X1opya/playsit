@@ -43,23 +43,26 @@ fun CompilationScreen(
                 expandFrom = Alignment.Top
             ) + fadeIn(initialAlpha = 0.3f),
             exit = slideOutVertically() + shrinkVertically() + fadeOut()) {
-            FeedPager() {
-                Spacer(modifier = Modifier.padding(bottom = 25.dp))
-                Column(Modifier.fillMaxHeight()) {
-                    compilations.value?.forEachIndexed { index, list ->
-                        if (list.type == "games") {
-                            CompilationList(list, index == 0) {
-                                navController.navigate("GameDetail/$it")
+            FeedPager {
+                if (it == 0) {
+                    Column(Modifier.fillMaxHeight().padding(top = 25.dp)) {
+                        compilations.value?.forEachIndexed { index, list ->
+                            if (list.type == "games") {
+                                CompilationList(list, index == 0) {
+                                    navController.navigate("GameDetail/$it")
+                                }
+                            } else if (list.type == "videos") {
+                                VideCompilationList(list) { videoId ->
+                                    val intent = Intent(context, YouTubeActivity::class.java)
+                                    intent.putExtras(bundleOf(YouTubeActivity.VIDEO_ID to videoId))
+                                    context.startActivity(intent)
+                                }
                             }
-                        } else if (list.type == "videos") {
-                            VideCompilationList(list) { videoId ->
-                                val intent = Intent(context, YouTubeActivity::class.java)
-                                intent.putExtras(bundleOf(YouTubeActivity.VIDEO_ID to videoId))
-                                context.startActivity(intent)
-                            }
+                            Spacer(modifier = Modifier.padding(bottom = 40.dp))
                         }
-                        Spacer(modifier = Modifier.padding(bottom = 40.dp))
                     }
+                } else {
+
                 }
             }
         }

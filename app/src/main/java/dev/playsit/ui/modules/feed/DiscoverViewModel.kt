@@ -158,13 +158,13 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
     private fun setupBoards(feed: Feed) {
         val boards = feed.boards.toMutableList()
         val ourBoards = mutableListOf<Board>()
+        val userBoards = mutableListOf<Board>()
         boards.forEach {
             if (it.pos != null) ourBoards.add(it)
+            else userBoards.add(it)
         }
-//        _ourBoards.value = ourBoards
-//
-//        boards.removeAll(ourBoards)
-//        _userBoards.value = boards
+        _ourBoards.value = ourBoards
+        _userBoards.value = userBoards
     }
 
     companion object {

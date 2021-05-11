@@ -56,5 +56,4 @@ internal object HttpModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(ApiService::class.java)
-
 }

@@ -1,7 +1,9 @@
 package dev.playsit.ui.modules.feed
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -11,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -23,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun FeedPager(content: @Composable () -> Unit) {
+fun FeedPager(content: @Composable (page: Int) -> Unit) {
     val pages = listOf(
         stringResource(R.string.collectionsTitle),
         stringResource(R.string.boardsTitle)
@@ -86,26 +89,27 @@ fun FeedPager(content: @Composable () -> Unit) {
         HorizontalPager(
             state = pagerState,
             Modifier
-                .height(1700.dp),
+                .fillMaxWidth(),
+            dragEnabled = false
 //            reverseLayout = true
         ) { index ->
-            Column(
-                Modifier
-                    .fillMaxHeight()
-//                                    .verticalScroll(rememberScrollState())
-//                    .align(Alignment.Center)
-            ) {
+            Box {
                 if (index == 0) {
-                    content()
-                } else {
-//                    repeat(30) {
-//                        Text(
-//                            text = "Page: 2",
-//                            style = MaterialTheme.typography.h4,
-//                            modifier = Modifier,
-//                            color = Color.White
-//                        )
-//                    }
+                    content(index)
+                } else if (index == 1) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        repeat(30) {
+                            Text(
+                                text = "Page: page",
+                                style = MaterialTheme.typography.h4,
+                                modifier = Modifier,
+                                color = Color.White
+                            )
+                        }
+                    }
                 }
             }
         }
