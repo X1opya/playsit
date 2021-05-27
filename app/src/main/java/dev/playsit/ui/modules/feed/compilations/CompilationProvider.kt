@@ -5,10 +5,11 @@ import androidx.paging.PagingConfig
 import dev.playsit.model.Compilation
 import dev.playsit.repository.CompilationPaginationSource
 import dev.playsit.repository.FeedRepository
+import dev.playsit.ui.modules.feed.compilations.utils.Title
 
-class CompilationProvider(compilation: Compilation, repository: FeedRepository) {
-    val name = compilation.name
-    val description = compilation.description
+class CompilationProvider(compilation: Compilation, repository: FeedRepository): Title {
+    private val name = compilation.name
+    private val description = compilation.description
     val id = compilation.id
     val type = compilation.type
 
@@ -17,4 +18,8 @@ class CompilationProvider(compilation: Compilation, repository: FeedRepository) 
             CompilationPaginationSource(repository, compilation.slug)
         }.flow
     }
+
+    override fun getName() = name
+
+    override fun getSubTitle() = description
 }

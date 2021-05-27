@@ -19,7 +19,11 @@
         <entry key="../../../../layout/compose-model-1616959158913.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1617025989601.xml" value="0.1" />
         <entry key="../../../../layout/custom_preview.xml" value="0.21302083333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_crop_square_24.xml" value="0.16197916666666667" />
         <entry key="app/src/main/res/drawable/ic_grid.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/ic_heart_gray.xml" value="0.34074074074074073" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.16197916666666667" />
+        <entry key="app/src/main/res/drawable/ic_play.xml" value="0.16197916666666667" />
       </map>
     </option>
   </component>

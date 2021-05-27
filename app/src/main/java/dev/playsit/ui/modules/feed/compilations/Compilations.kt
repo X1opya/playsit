@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,17 +15,18 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import dev.playsit.ui.components.gameCards.BigGameCard
 import dev.playsit.ui.components.gameCards.SmallGameCard
-import dev.playsit.ui.components.text.CategoryTitle
+import dev.playsit.ui.components.text.CategoryTitleText
 import dev.playsit.ui.components.text.DescriptionText
 import dev.playsit.ui.theme.BaseAppDimen
 import dev.playsit.R
+import dev.playsit.ui.modules.feed.compilations.utils.Title
 import dev.playsit.ui.modules.feed.compilations.video.VideoImageCard
 
 @Composable
 fun CompilationList(compilation: CompilationProvider, isMain: Boolean, onItemClick: (id: Int) -> Unit) {
     val lazyItems = compilation.lazyFeedItems.collectAsLazyPagingItems()
     Column {
-        CompilationTitle(compilation = compilation, Modifier.padding(start = BaseAppDimen))
+        CategoryTitle(compilation, Modifier.padding(start = BaseAppDimen))
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(BaseAppDimen),
             state = rememberLazyListState()
@@ -47,7 +49,7 @@ fun VideCompilationList(compilation: CompilationProvider, onItemClick: (String?)
     val lazyItems = compilation.lazyFeedItems.collectAsLazyPagingItems()
     Column {
 
-        CompilationTitle(compilation = compilation, Modifier.padding(start = BaseAppDimen))
+        CategoryTitle(compilation, Modifier.padding(start = BaseAppDimen))
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(BaseAppDimen),
             state = rememberLazyListState()
@@ -61,16 +63,16 @@ fun VideCompilationList(compilation: CompilationProvider, onItemClick: (String?)
 }
 
 @Composable
-fun CompilationTitle(compilation: CompilationProvider, modifier: Modifier = Modifier) {
+fun CategoryTitle(title: Title, modifier: Modifier = Modifier) {
     Column(
         Modifier
             .then(modifier)
     ) {
         ConstraintLayout(Modifier.fillMaxWidth()) {
-            val (title, image) = createRefs()
-            CategoryTitle(
-                text = compilation.name,
-                modifier = Modifier.constrainAs(title) {
+            val (titleView, imageView) = createRefs()
+            CategoryTitleText(
+                text = title.getName(),
+                modifier = Modifier.constrainAs(titleView) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
                 }
@@ -80,16 +82,16 @@ fun CompilationTitle(compilation: CompilationProvider, modifier: Modifier = Modi
                 contentDescription = null,
                 Modifier
                     .size(16.dp)
-                    .constrainAs(image) {
+                    .constrainAs(imageView) {
                         end.linkTo(parent.end, margin = 25.dp)
-                        top.linkTo(title.top)
-                        bottom.linkTo(title.bottom)
+                        top.linkTo(titleView.top)
+                        bottom.linkTo(titleView.bottom)
                     },
                 tint = Color.White,
             )
         }
         Spacer(modifier = Modifier.padding(5.dp))
-        DescriptionText(text = compilation.description)
+        DescriptionText(text = title.getSubTitle())
         Spacer(modifier = Modifier.padding(15.dp))
     }
 }

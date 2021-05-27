@@ -1,5 +1,6 @@
 package dev.playsit.ui.components.imageContainers
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -7,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
 fun GameImageCard(
@@ -19,16 +20,18 @@ fun GameImageCard(
     val width = getImageWidth(imageType)
     val height = getImageHeight(imageType)
     uri ?: return
-    Box(modifier = Modifier.then(modifier)
-        .size(width, height)) {
-        CoilImage(
-            data = uri,
+    Box(
+        modifier = Modifier
+            .then(modifier)
+            .size(width, height)
+    ) {
+        Image(
+            painter = rememberCoilPainter(request = uri, fadeIn = true),
             modifier = Modifier
                 .size(width, height)
                 .clip(RoundedCornerShape(16.dp)),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
-            fadeIn = true
+            contentScale = ContentScale.Crop
         )
         rating?.let {
             Box(modifier = Modifier.padding(10.dp)) {

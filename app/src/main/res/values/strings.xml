@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Playsit</string>
 
-    <string name="navDiscover">Discover</string>
     <string name="navNews">News</string>
     <string name="navSearch">Search</string>
     <string name="navNotifications">Notifications</string>
@@ -16,6 +15,8 @@
     <string name="userBoardsTitle">User boards</string>
     <string name="userBoardsSubtitle">Find something interesting for yourself</string>
     <string name="byUser"><![CDATA[by <b><font color=#C0C0C0>@%1$s</font></b> · %2$s games]]></string>
+    <string name="by_key">by </string>
+    <string name="game_key"> games</string>
 
     <string name="willPlay">Will play</string>
     <string name="played">Played</string>

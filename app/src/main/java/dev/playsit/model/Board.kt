@@ -6,7 +6,7 @@ data class Board(
     @SerializedName("access_type")
     val accessType: String,
     @SerializedName("cover")
-    val cover: String,
+    override val cover: String,
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("description")
@@ -16,23 +16,37 @@ data class Board(
     @SerializedName("liked")
     val liked: Boolean,
     @SerializedName("likes_count")
-    val likesCount: Int,
+    override val likesCount: Int,
     @SerializedName("owner_id")
     val ownerId: Int,
     @SerializedName("owner_nickname")
-    val ownerNickname: String,
+    override val ownerNickname: String,
     @SerializedName("pos")
     val pos: Int?,
     @SerializedName("slug")
     val slug: String,
     @SerializedName("small_info")
-    val smallInfo: String,
+    override val smallInfo: String,
     @SerializedName("subtitle")
-    val subtitle: String,
+    override val subtitle: String,
     @SerializedName("title")
-    val title: String,
+    override val title: String,
     @SerializedName("updated_at")
     val updatedAt: String,
     @SerializedName("items")
-    val items: List<Game>?
-)
+    override val items: List<Game>?
+) : OurBord, UserBoard
+
+interface UserBoard {
+    val items: List<Game?>?
+    val likesCount: Int
+    val title: String
+    val ownerNickname: String
+}
+
+interface OurBord {
+    val cover: String
+    val title: String
+    val subtitle: String
+    val smallInfo: String?
+}

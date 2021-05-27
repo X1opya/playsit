@@ -1,5 +1,6 @@
 package dev.playsit.ui.modules.feed.compilations.video
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
 import dev.playsit.R
 import dev.playsit.model.FeedItem
 import dev.playsit.ui.components.text.DescriptionText
@@ -29,8 +30,8 @@ import dev.playsit.ui.theme.UnSelectTabColor
 fun VideoImageCard(videoItem: FeedItem, onClick: (String?) -> Unit) {
     ConstraintLayout(modifier = Modifier.clickable { onClick(videoItem.videoIdentifier) }) {
         val (image, icon, title, desc, duration) = createRefs()
-        CoilImage(
-            data = videoItem.cover ?: "",
+        Image(
+            painter = rememberCoilPainter(request = videoItem.cover ?: "", fadeIn = true),
             modifier = Modifier
                 .constrainAs(image) {
                     top.linkTo(parent.top)
@@ -42,8 +43,7 @@ fun VideoImageCard(videoItem: FeedItem, onClick: (String?) -> Unit) {
                 .clip(RoundedCornerShape(16.dp)),
 
             contentDescription = null,
-            contentScale = ContentScale.Crop,
-            fadeIn = true
+            contentScale = ContentScale.Crop
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_play),

@@ -4,10 +4,17 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LibraryAdd
+import androidx.compose.material.icons.filled.PlusOne
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -73,16 +80,23 @@ fun GenreCardList(genres: List<String>, modifier: Modifier) {
 }
 
 @Composable
-fun GenreCard(genre: String) {
+fun GenreCard(genre: String, iconId: Int? = null) {
     Card(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(UnSelectTabColor)
-            .padding(8.dp)
-            .padding(horizontal = 8.dp),
+            .height(34.dp)
+            .padding(horizontal = 15.dp)
+        ,
 
         backgroundColor = UnSelectTabColor
     ) {
-        GenreText(text = genre)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            iconId?.let {
+                Icon(painterResource(it), contentDescription = null, tint = Color.White)
+                Spacer(modifier = Modifier.size(7.dp))
+            }
+            GenreText(text = genre)
+        }
     }
 }
