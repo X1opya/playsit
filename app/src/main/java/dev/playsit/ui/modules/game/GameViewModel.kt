@@ -1,4 +1,4 @@
-package dev.playsit.ui.modules.feed.game
+package dev.playsit.ui.modules.game
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

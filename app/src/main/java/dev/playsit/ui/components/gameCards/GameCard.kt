@@ -86,9 +86,7 @@ fun GenreCard(genre: String, iconId: Int? = null) {
             .clip(RoundedCornerShape(16.dp))
             .background(UnSelectTabColor)
             .height(34.dp)
-            .padding(horizontal = 15.dp)
-        ,
-
+            .padding(horizontal = 15.dp),
         backgroundColor = UnSelectTabColor
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

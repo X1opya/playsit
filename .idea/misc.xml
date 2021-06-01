@@ -18,12 +18,23 @@
         <entry key="../../../../layout/compose-model-1616758967429.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1616959158913.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1617025989601.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1622130501353.xml" value="0.9637305699481865" />
+        <entry key="../../../../layout/compose-model-1622176754233.xml" value="0.9585492227979274" />
+        <entry key="../../../../layout/compose-model-1622468907426.xml" value="0.18327702702702703" />
+        <entry key="../../../../layout/compose-model-1622469959316.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1622473277388.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1622525602266.xml" value="0.1" />
         <entry key="../../../../layout/custom_preview.xml" value="0.21302083333333333" />
+        <entry key="app/src/main/res/drawable/ic_accept.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/drawable/ic_baseline_crop_square_24.xml" value="0.16197916666666667" />
+        <entry key="app/src/main/res/drawable/ic_clock.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/drawable/ic_grid.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_heart_gray.xml" value="0.34074074074074073" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.16197916666666667" />
+        <entry key="app/src/main/res/drawable/ic_laurels.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_play.xml" value="0.16197916666666667" />
+        <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.17222222222222222" />
+        <entry key="app/src/main/res/drawable/ic_spinner.xml" value="0.17222222222222222" />
       </map>
     </option>
   </component>

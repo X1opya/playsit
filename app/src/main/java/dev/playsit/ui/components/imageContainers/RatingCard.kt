@@ -25,7 +25,8 @@ import dev.playsit.ui.theme.RatingColorLow
 import dev.playsit.ui.theme.RatingColorMedium
 
 @Composable
-fun RatingCard(rating: Float) {
+fun RatingCard(rating: String) {
+    if(rating.toFloatOrNull() == null) return
     Card(
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
@@ -56,7 +57,9 @@ fun RatingCard(rating: Float) {
     }
 }
 
-private fun getRatingColor(rating: Float) =
-    if (rating <= 3) RatingColorLow
-    else if (rating < 7 && rating > 3) RatingColorMedium
+private fun getRatingColor(rating: String): Color {
+    val digRating = rating.toFloat()
+    return if (digRating <= 3) RatingColorLow
+    else if (digRating < 7 && digRating > 3) RatingColorMedium
     else RatingColorHigh
+}

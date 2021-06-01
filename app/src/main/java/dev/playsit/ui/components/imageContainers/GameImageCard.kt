@@ -13,7 +13,7 @@ import com.google.accompanist.coil.rememberCoilPainter
 @Composable
 fun GameImageCard(
     uri: String?,
-    rating: Float?,
+    rating: String?,
     imageType: ImageType = ImageType.Small,
     modifier: Modifier = Modifier
 ) {
@@ -35,7 +35,7 @@ fun GameImageCard(
         )
         rating?.let {
             Box(modifier = Modifier.padding(10.dp)) {
-                RatingCard(rating = rating)
+                RatingCard(rating = rating.toString())
             }
         }
     }

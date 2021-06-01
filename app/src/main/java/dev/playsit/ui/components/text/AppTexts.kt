@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
@@ -12,7 +13,13 @@ import dev.playsit.ui.theme.GrayTextColor
 import dev.playsit.ui.theme.WhiteTextColor
 
 @Composable
-fun DefaultBoldText(text: String, fontSize: TextUnit, modifier: Modifier = Modifier) {
+fun DefaultBoldText(
+    text: String,
+    fontSize: TextUnit,
+    modifier: Modifier = Modifier,
+    maxLines: Int = 1,
+    textAlign: TextAlign? = null
+) {
     Text(
         text = text,
         fontWeight = FontWeight.Bold,
@@ -20,7 +27,8 @@ fun DefaultBoldText(text: String, fontSize: TextUnit, modifier: Modifier = Modif
         color = WhiteTextColor,
         modifier = Modifier.then(modifier),
         overflow = TextOverflow.Ellipsis,
-        maxLines = 1
+        maxLines = maxLines,
+        textAlign = textAlign
     )
 }
 
@@ -30,8 +38,19 @@ fun GameTitle(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CategoryTitleText(text: String, modifier: Modifier = Modifier) {
-    DefaultBoldText(text = text, fontSize = 25.sp, modifier = Modifier.then(modifier))
+fun CategoryTitleText(
+    text: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = 1,
+    textAlign: TextAlign? = null
+) {
+    DefaultBoldText(
+        text = text,
+        fontSize = 25.sp,
+        modifier = Modifier.then(modifier),
+        maxLines = maxLines,
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -57,7 +76,11 @@ fun DefaultGrayText(text: String, fontSize: TextUnit = 14.sp, modifier: Modifier
 }
 
 @Composable
-fun DefaultGrayText(text: AnnotatedString, fontSize: TextUnit = 14.sp, modifier: Modifier = Modifier) {
+fun DefaultGrayText(
+    text: AnnotatedString,
+    fontSize: TextUnit = 14.sp,
+    modifier: Modifier = Modifier
+) {
     Text(
         text = text,
         fontWeight = FontWeight.Normal,

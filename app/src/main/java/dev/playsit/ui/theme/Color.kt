@@ -19,3 +19,4 @@ val RatingColorMedium = Color(0xfffcb817)
 val RatingColorLow = Color.Red
 //
 val DividerColor = Color(0xff2c2c2c)
+val RATING_GREEN = Color(0xFF0fc545)
