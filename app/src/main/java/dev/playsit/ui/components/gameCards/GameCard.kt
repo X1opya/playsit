@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LibraryAdd
-import androidx.compose.material.icons.filled.PlusOne
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -18,7 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import dev.playsit.model.FeedItem
+import dev.playsit.dto.FeedItem
+import dev.playsit.dto.GameCardDto
 import dev.playsit.ui.components.imageContainers.GameImageCard
 import dev.playsit.ui.components.imageContainers.ImageType
 import dev.playsit.ui.components.text.GameTitle
@@ -28,7 +26,7 @@ import dev.playsit.ui.theme.UnSelectTabColor
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun GameCard(
-    feedItem: FeedItem,
+    feedItem: GameCardDto,
     cardType: ImageType,
     hasGenre: Boolean,
     onClick: (id: Int) -> Unit
@@ -45,7 +43,7 @@ fun GameCard(
             }
         )
         GameTitle(
-            text = feedItem.name,
+            text = feedItem.name ?: "",
             modifier = Modifier.constrainAs(title) {
                 end.linkTo(image.end)
                 start.linkTo(image.start)

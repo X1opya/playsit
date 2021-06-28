@@ -28,8 +28,10 @@ import dev.playsit.ui.theme.UnSelectTabColor
 @Composable
 fun ReviewLazyList(reviews: ReviewCollections) {
     if (!reviews.reviews.isNullOrEmpty()) {
-        LazyRow(modifier = Modifier.offset(x = (-25).dp)) {
-            itemsIndexed(reviews.reviews) { _, item ->
+        Spacer(modifier = Modifier.size(20.dp))
+        LazyRow {
+            itemsIndexed(reviews.reviews) { index, item ->
+                if(index == 0) Spacer(modifier = Modifier.size(25.dp))
                 ReviewItem(review = item)
                 Spacer(modifier = Modifier.size(10.dp))
             }

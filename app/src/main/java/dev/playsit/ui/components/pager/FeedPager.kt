@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
@@ -105,15 +106,15 @@ fun FeedPager(
 //        contentHeight.value = with(LocalDensity.current) {1333.toDp() }
         HorizontalPager(
             state = pagerState,
-            Modifier
-                .then(
-                    if (count.value == 2 && contentHeight.value != null) {
-                        Log.d("TEST_SIZE", "HorizontalPager: then ${contentHeight.value}")
-                        Modifier.height(contentHeight.value!!)
-                    } else {
-                        Modifier
-                    }
-                ),
+            Modifier.clipToBounds(),
+//                .then(
+//                    if (count.value == 2 && contentHeight.value != null) {
+//                        Log.d("TEST_SIZE", "HorizontalPager: then ${contentHeight.value}")
+//                        Modifier.height(contentHeight.value!!)
+//                    } else {
+//                        Modifier
+//                    }
+//                ),
             dragEnabled = false,
             verticalAlignment = Alignment.Top
         ) { index ->

@@ -1,4 +1,4 @@
-package dev.playsit.core.network.handlers.result
+package dev.playsit.core.network.configurations.result
 
 sealed class ApiResult<out T> {
 
@@ -38,4 +38,6 @@ sealed class ApiResult<out T> {
             operator fun component3() = statusMessage
         }
     }
+
+    sealed class Loading<T> : ApiResult<T>()
 }

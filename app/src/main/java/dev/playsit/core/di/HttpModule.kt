@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.playsit.core.network.ApiService
+import dev.playsit.core.network.configurations.call.ResultAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,7 +28,7 @@ internal object HttpModule {
         headerInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BASIC
+            level = HttpLoggingInterceptor.Level.BODY
         })
         .addInterceptor(headerInterceptor)
         .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -54,6 +55,7 @@ internal object HttpModule {
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(ResultAdapterFactory())
         .build()
         .create(ApiService::class.java)
 }

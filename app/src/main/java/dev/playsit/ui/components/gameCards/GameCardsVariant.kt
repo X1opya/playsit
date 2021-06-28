@@ -1,7 +1,7 @@
 package dev.playsit.ui.components.gameCards
 
 import androidx.compose.runtime.Composable
-import dev.playsit.model.FeedItem
+import dev.playsit.dto.FeedItem
 import dev.playsit.ui.components.imageContainers.ImageType
 
 @Composable

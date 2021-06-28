@@ -1,4 +1,4 @@
-package dev.playsit.model
+package dev.playsit.dto
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

@@ -1,7 +1,7 @@
-package dev.playsit.core.network.handlers.call
+package dev.playsit.core.network.configurations.call
 
-import dev.playsit.core.network.handlers.result.ApiResult
-import dev.playsit.core.network.handlers.result.HttpException
+import dev.playsit.core.network.configurations.result.ApiResult
+import dev.playsit.core.network.configurations.result.HttpException
 import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback

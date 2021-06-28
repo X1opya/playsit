@@ -1,6 +1,6 @@
-package dev.playsit.core.network.handlers.http
+package dev.playsit.core.network.configurations.http
 
-import dev.playsit.core.network.handlers.call.ResultAdapterFactory
+import dev.playsit.core.network.configurations.call.ResultAdapterFactory
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

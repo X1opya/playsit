@@ -3,7 +3,7 @@ package dev.playsit.repository
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import dev.playsit.model.FeedItem
+import dev.playsit.dto.FeedItem
 import java.lang.Exception
 
 class CompilationPaginationSource(private val repository: FeedRepository, val slug: String) :

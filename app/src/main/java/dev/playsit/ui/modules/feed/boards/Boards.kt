@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.coil.rememberCoilPainter
-import dev.playsit.model.Game
-import dev.playsit.model.OurBord
-import dev.playsit.model.UserBoard
+import dev.playsit.dto.Game
+import dev.playsit.dto.OurBord
+import dev.playsit.dto.UserBoard
 import dev.playsit.ui.modules.feed.compilations.CategoryTitle
 import dev.playsit.ui.modules.feed.compilations.utils.Title
 import dev.playsit.R

@@ -1,11 +1,11 @@
-package dev.playsit.model
+package dev.playsit.dto
 
 import com.google.gson.annotations.SerializedName
 import dev.playsit.R
 
 data class Game(
     @SerializedName("age_rating")
-    val ageRating: String,
+    val ageRating: String?,
     @SerializedName("aggregated_rating")
     val aggregatedRating: Float,
     @SerializedName("rating")
@@ -17,7 +17,7 @@ data class Game(
     @SerializedName("developer")
     val developer: List<String>,
     @SerializedName("first_release_date")
-    val firstReleaseDate: String,
+    val firstReleaseDate: String?,
     @SerializedName("game_modes")
     val gameModes: List<String>,
     @SerializedName("game_videos")
@@ -52,6 +52,8 @@ data class Game(
     val views: Int,
     @SerializedName("will_play_count")
     val willPlayCount: Int,
+    @SerializedName("dlc")
+    val dlcList: List<Dlc>?,
     var similarGames: List<FeedItem>? = null
 ) {
     companion object {
@@ -81,25 +83,50 @@ data class Game(
         get() {
             val uniquePlatforms = mutableListOf<Platform>()
             platforms.forEach { platform ->
-                if (!uniquePlatforms.contains(Platform.PC) && (platform == "PC" || platform == "Windows Mixed Reality")) {
+                if (!uniquePlatforms.contains(Platform.PC) && (platform == "PC" ||
+                            platform == "Windows Mixed Reality")
+                ) {
                     uniquePlatforms += Platform.PC
                 }
-                if (!(uniquePlatforms.contains(Platform.PS) || !(platform == "PlayStation" || platform == "PlayStation 2" || platform == "PlayStation 3" || platform == "PlayStation 4" || platform == "PlayStation Portable" || platform == "PlayStation Network" || platform == "PlayStation Vita" || platform == "PlayStation VR" || platform == "PlayStation 5"))) {
+                if (!(uniquePlatforms.contains(Platform.PS) || !(platform == "PlayStation" ||
+                            platform == "PlayStation 2" || platform == "PlayStation 3" ||
+                            platform == "PlayStation 4" || platform == "PlayStation Portable" ||
+                            platform == "PlayStation Network" || platform == "PlayStation Vita" ||
+                            platform == "PlayStation VR" || platform == "PlayStation 5"))
+                ) {
                     uniquePlatforms += Platform.PS
                 }
-                if (!uniquePlatforms.contains(Platform.XBOX) && (platform == "Xbox" || platform == "Xbox 360" || platform == "Xbox One" || platform == "Xbox Project Scarlett" || platform == "Xbox Live Arcade" || platform == "Xbox Series X/S")) {
+                if (!uniquePlatforms.contains(Platform.XBOX) && (platform == "Xbox" ||
+                            platform == "Xbox 360" || platform == "Xbox One" ||
+                            platform == "Xbox Project Scarlett" ||
+                            platform == "Xbox Live Arcade" || platform == "Xbox Series X/S")
+                ) {
                     uniquePlatforms += Platform.XBOX
                 }
                 if (!uniquePlatforms.contains(Platform.Stadia) && (platform == "Google Stadia")) {
                     uniquePlatforms += Platform.Stadia
                 }
-                if (!uniquePlatforms.contains(Platform.Atari) && (platform == "Atari 2600" || platform == "Atari 7800" || platform == "Atari Lynx" || platform == "Atari Jaguar" || platform == "Atari ST/STE" || platform == "Atari 8-bit" || platform == "Atari 5200")) {
+                if (!uniquePlatforms.contains(Platform.Atari) && (platform == "Atari 2600" ||
+                            platform == "Atari 7800" || platform == "Atari Lynx" ||
+                            platform == "Atari Jaguar" || platform == "Atari ST/STE" ||
+                            platform == "Atari 8-bit" || platform == "Atari 5200")
+                ) {
                     uniquePlatforms += Platform.Atari
                 }
-                if (!uniquePlatforms.contains(Platform.Nintendo) && (platform == "Nintendo 64" || platform == "Nintendo Entertainment System (NES)" || platform == "Super Nintendo Entertainment System (SNES)" || platform == "Nintendo DS" || platform == "Nintendo GameCube" || platform == "Nintendo 3DS" || platform == "Virtual Console (Nintendo)" || platform == "Nintendo Switch" || platform == "New Nintendo 3DS" || platform == "Nintendo DSi" || platform == "Nintendo eShop")) {
+                if (!uniquePlatforms.contains(Platform.Nintendo) && (platform == "Nintendo 64" ||
+                            platform == "Nintendo Entertainment System (NES)" ||
+                            platform == "Super Nintendo Entertainment System (SNES)" ||
+                            platform == "Nintendo DS" || platform == "Nintendo GameCube" ||
+                            platform == "Nintendo 3DS" ||
+                            platform == "Virtual Console (Nintendo)" ||
+                            platform == "Nintendo Switch" || platform == "New Nintendo 3DS" ||
+                            platform == "Nintendo DSi" || platform == "Nintendo eShop")
+                ) {
                     uniquePlatforms += Platform.Nintendo
                 }
-                if (!uniquePlatforms.contains(Platform.Apple) && (platform == "Apple II" || platform == "Apple IIGS" || platform == "Mac" || platform == "iOS")) {
+                if (!uniquePlatforms.contains(Platform.Apple) && (platform == "Apple II" ||
+                            platform == "Apple IIGS" || platform == "Mac" || platform == "iOS")
+                ) {
                     uniquePlatforms += Platform.Apple
                 }
                 if (!uniquePlatforms.contains(Platform.Android) && platform == "Android") {
@@ -108,7 +135,12 @@ data class Game(
                 if (!uniquePlatforms.contains(Platform.Linux) && platform == "Linux") {
                     uniquePlatforms += Platform.Linux
                 }
-                if (!uniquePlatforms.contains(Platform.Sega) && (platform == "Sega Mega Drive/Genesis" || platform == "Sega 32X" || platform == "Sega Saturn" || platform == "Sega Game Gear" || platform == "Sega Master System" || platform == "Sega CD" || platform == "SG-1000")) {
+                if (!uniquePlatforms.contains(Platform.Sega) &&
+                    (platform == "Sega Mega Drive/Genesis" ||
+                            platform == "Sega 32X" || platform == "Sega Saturn" ||
+                            platform == "Sega Game Gear" || platform == "Sega Master System" ||
+                            platform == "Sega CD" || platform == "SG-1000")
+                ) {
                     uniquePlatforms += Platform.Sega
                 }
                 if (!uniquePlatforms.contains(Platform.Web) && platform == "Web browser") {
@@ -122,6 +154,14 @@ data class Game(
 object GameImageConverter {
     fun getGenreIdList(items: List<String>) = items.map { bind(it) }
     fun getPlatformIdList(items: List<Platform>) = items.map { bind(it) }
+
+    fun getStoreIcon(name: String?) =
+        when (name) {
+            "Xbox" -> R.drawable.ic_xbox_store
+            "Steam" -> R.drawable.ic_steam_store
+            else -> R.drawable.ic_ps_store
+        }
+
     private fun bind(item: String): Int {
         return when (item) {
             Game.GENRE_ADVENTURE -> R.drawable.ic_adventure

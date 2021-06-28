@@ -48,7 +48,7 @@ fun RatingCard(rating: String) {
                 modifier = Modifier.scale(0.5f)
             )
             Text(
-                text = rating.toUInt().toString(),
+                text = rating.toInt().toString(),
                 modifier = Modifier,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold

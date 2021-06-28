@@ -3,9 +3,9 @@ package dev.playsit.ui.modules.feed
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.playsit.core.utils.toLiveData
-import dev.playsit.model.Board
-import dev.playsit.model.Compilation
-import dev.playsit.model.Feed
+import dev.playsit.dto.Board
+import dev.playsit.dto.Compilation
+import dev.playsit.dto.Feed
 import dev.playsit.repository.FeedRepository
 import dev.playsit.ui.modules.feed.compilations.CompilationProvider
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -148,7 +148,7 @@ class DiscoverViewModel @Inject constructor(private val repository: FeedReposito
 //                    iterator.remove()
 //                }
 //            }
-        }
+    }
 //        compilations.forEach {
 ////            _otherCompilations.value?.add(MutableLiveData(CompilationProvider(it, repository)))
 //        }

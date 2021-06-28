@@ -25,7 +25,7 @@ import dev.playsit.ui.theme.UnSelectTabColor
 
 @Composable
 fun GameReviewAndRating(reviewCount: String?, rating: String?, onSelect: OnReviewAndRatingClick) {
-    Row(Modifier.padding(horizontal = 25.dp).fillMaxWidth(), Arrangement.SpaceBetween) {
+    Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
         GameRating(rating = rating,
             Modifier
                 .clickable { onSelect.onRatingClick() }
@@ -99,7 +99,7 @@ fun GreenText(text: String, fontSize: TextUnit) {
 @Composable
 @Preview
 fun PreviewGameRating() {
-    Column() {
+    Column {
         val click = object : OnReviewAndRatingClick {
             override fun onRatingClick() {}
             override fun onReviewClick() {}

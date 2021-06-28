@@ -25,7 +25,7 @@ fun MainScreen(discoverViewModel: DiscoverViewModel, navController: NavHostContr
             "GameDetail/{id}",
             arguments = listOf(navArgument("id") { type = NavType.IntType }
             )) { backStack ->
-            backStack.arguments?.getInt("id")?.let { GameDetail(id = it) }
+            backStack.arguments?.getInt("id")?.let { GameDetail(id = it, navController) }
         }
     }
 }

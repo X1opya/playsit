@@ -1,6 +1,6 @@
-package dev.playsit.core.network.handlers.handler
+package dev.playsit.core.network.configurations.handler
 
-import dev.playsit.core.network.handlers.result.HttpException
+import dev.playsit.core.network.configurations.result.HttpException
 
 interface ApiResultListener<T> {
     fun onSuccess(data: T?)

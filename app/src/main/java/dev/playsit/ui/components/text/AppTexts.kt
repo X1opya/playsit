@@ -76,6 +76,18 @@ fun DefaultGrayText(text: String, fontSize: TextUnit = 14.sp, modifier: Modifier
 }
 
 @Composable
+fun DefaultWhiteText(text: String, fontSize: TextUnit = 14.sp, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        fontWeight = FontWeight.Normal,
+        fontSize = fontSize,
+        color = WhiteTextColor,
+        modifier = Modifier.then(modifier),
+        overflow = TextOverflow.Ellipsis
+    )
+}
+
+@Composable
 fun DefaultGrayText(
     text: AnnotatedString,
     fontSize: TextUnit = 14.sp,

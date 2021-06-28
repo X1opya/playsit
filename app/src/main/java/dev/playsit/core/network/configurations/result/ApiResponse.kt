@@ -1,4 +1,4 @@
-package dev.playsit.core.network.handlers.result
+package dev.playsit.core.network.configurations.result
 
 interface ApiResponse {
     val statusCode: Int

@@ -1,6 +1,6 @@
-package dev.playsit.core.network.handlers.handler
+package dev.playsit.core.network.configurations.handler
 
-import dev.playsit.core.network.handlers.result.ApiResult
+import dev.playsit.core.network.configurations.result.ApiResult
 
 suspend fun <T> sendRequest(listener: ApiResultListener<T>, request: suspend () -> ApiResult<T?>) {
     when(val result = request.invoke()) {

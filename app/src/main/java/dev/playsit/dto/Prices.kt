@@ -1,4 +1,4 @@
-package dev.playsit.model
+package dev.playsit.dto
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,37 +6,27 @@ data class Prices(
     @SerializedName("last_updated_time")
     val lastUpdatedTime: String,
     @SerializedName("stores")
-    val stores: List<Store>
+    val stores: List<PlatformStore>
 )
 
-data class Store(
+data class PlatformStore(
     @SerializedName("steam")
-    val steam: Steam?,
+    private val steam: Store?,
     @SerializedName("type")
     val type: String,
     @SerializedName("xbox_store")
-    val xboxStore: XboxStore?,
+    private val xboxStore: Store?,
     @SerializedName("ps_store")
-    val psStore: PsStore?
-)
+    private val psStore: Store?
+) {
+    val store get() = steam ?: xboxStore ?: psStore
+}
 
-data class XboxStore(
+data class Store(
     @SerializedName("price")
     val price: String,
-    @SerializedName("url")
-    val url: String
-)
-
-data class Steam(
-    @SerializedName("price")
-    val price: String,
-    @SerializedName("url")
-    val url: String
-)
-
-data class PsStore(
-    @SerializedName("price")
-    val price: String,
+    @SerializedName("discount_price")
+    val discount: String?,
     @SerializedName("url")
     val url: String
 )

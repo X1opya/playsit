@@ -1,4 +1,4 @@
-package dev.playsit.core.network.handlers.http
+package dev.playsit.core.network.configurations.http
 
 import okhttp3.OkHttpClient
 

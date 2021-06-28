@@ -1,4 +1,4 @@
-package dev.playsit.core.network.handlers.call
+package dev.playsit.core.network.configurations.call
 
 import okhttp3.Request
 import retrofit2.Call

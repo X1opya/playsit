@@ -1,4 +1,8 @@
 package dev.playsit.dto
 
-class GameCardDto {
+interface GameCardDto {
+    val id: Int
+    val name: String?
+    val cover: String?
+    val genres: List<String>?
 }

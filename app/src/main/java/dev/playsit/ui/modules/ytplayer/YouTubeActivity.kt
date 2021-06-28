@@ -50,7 +50,10 @@ class YouTubeActivity : AppCompatActivity(R.layout.activity_player) {
     companion object {
         const val VIDEO_ID = "video_id"
 
-        fun navigateToPlayer(videoId1: Context, videoId: String) {
+        fun navigateToPlayer(context: Context, videoId: String) {
+            val intent = Intent(context, YouTubeActivity::class.java)
+            intent.putExtras(bundleOf(YouTubeActivity.VIDEO_ID to videoId))
+            context.startActivity(intent)
         }
     }
 }

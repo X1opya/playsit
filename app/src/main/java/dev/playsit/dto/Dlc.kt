@@ -1,4 +1,12 @@
 package dev.playsit.dto
 
-class Dlc {
+import com.google.gson.annotations.SerializedName
+
+data class Dlc(
+    @SerializedName("id") override val id: Int,
+    @SerializedName("name") override val name: String?,
+    @SerializedName("cover") override val cover: String?
+) : GameCardDto {
+    override val genres: List<String>?
+        get() = null
 }

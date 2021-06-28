@@ -2,13 +2,10 @@ package dev.playsit.repository
 
 import android.util.Log
 import dev.playsit.core.network.ApiService
-import dev.playsit.model.Compilation
-import dev.playsit.model.Feed
-import dev.playsit.model.FeedItem
-import dev.playsit.model.Game
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import dev.playsit.dto.Compilation
+import dev.playsit.dto.Feed
+import dev.playsit.dto.FeedItem
+import dev.playsit.dto.Game
 
 class FeedRepository(private val remoteDataSource: ApiService) {
     lateinit var feed: Feed

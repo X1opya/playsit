@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
+import dev.playsit.core.navigations.Screens
 import dev.playsit.ui.modules.ytplayer.YouTubeActivity
 
 @Composable
@@ -28,13 +29,11 @@ fun CompilationsFragment(
         compilations.value?.forEachIndexed { index, list ->
             if (list.type == "games") {
                 CompilationList(list, index == 0) {
-                    navController.navigate("GameDetail/$it")
+                    navController.navigate(Screens.toGameScreen(it))
                 }
             } else if (list.type == "videos") {
                 VideCompilationList(list) { videoId ->
-                    val intent = Intent(context, YouTubeActivity::class.java)
-                    intent.putExtras(bundleOf(YouTubeActivity.VIDEO_ID to videoId))
-                    context.startActivity(intent)
+                    videoId?.let { YouTubeActivity.navigateToPlayer(context, it) }
                 }
             }
             Spacer(modifier = Modifier.padding(bottom = 40.dp))

@@ -1,6 +1,6 @@
-package dev.playsit.core.network.handlers.call
+package dev.playsit.core.network.configurations.call
 
-import dev.playsit.core.network.handlers.result.ApiResult
+import dev.playsit.core.network.configurations.result.ApiResult
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit

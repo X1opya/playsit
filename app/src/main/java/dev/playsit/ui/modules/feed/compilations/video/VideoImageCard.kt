@@ -21,13 +21,14 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.google.accompanist.coil.rememberCoilPainter
 import dev.playsit.R
-import dev.playsit.model.FeedItem
+import dev.playsit.dto.FeedItem
+import dev.playsit.dto.VideoDto
 import dev.playsit.ui.components.text.DescriptionText
 import dev.playsit.ui.components.text.GameTitle
 import dev.playsit.ui.theme.UnSelectTabColor
 
 @Composable
-fun VideoImageCard(videoItem: FeedItem, onClick: (String?) -> Unit) {
+fun VideoImageCard(videoItem: VideoDto, onClick: (String?) -> Unit) {
     ConstraintLayout(modifier = Modifier.clickable { onClick(videoItem.videoIdentifier) }) {
         val (image, icon, title, desc, duration) = createRefs()
         Image(
@@ -92,5 +93,4 @@ fun VideoImageCard(videoItem: FeedItem, onClick: (String?) -> Unit) {
             centerHorizontallyTo(parent)
         })
     }
-
 }

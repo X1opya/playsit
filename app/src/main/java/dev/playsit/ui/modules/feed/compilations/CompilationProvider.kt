@@ -2,7 +2,7 @@ package dev.playsit.ui.modules.feed.compilations
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import dev.playsit.model.Compilation
+import dev.playsit.dto.Compilation
 import dev.playsit.repository.CompilationPaginationSource
 import dev.playsit.repository.FeedRepository
 import dev.playsit.ui.modules.feed.compilations.utils.Title
