@@ -1,4 +1,4 @@
-package dev.playsit.ui.modules.game
+package dev.playsit.ui.modules.game.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
