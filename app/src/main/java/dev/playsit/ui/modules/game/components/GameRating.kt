@@ -7,10 +7,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -19,21 +19,29 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.playsit.R
+import dev.playsit.ui.components.effects.placeholder
 import dev.playsit.ui.theme.GrayTextColor
 import dev.playsit.ui.theme.RATING_GREEN
 import dev.playsit.ui.theme.UnSelectTabColor
 
 @Composable
-fun GameReviewAndRating(reviewCount: String?, rating: String?, onSelect: OnReviewAndRatingClick) {
+fun GameReviewAndRating(
+    reviewCount: String?,
+    rating: String?,
+    onSelect: OnReviewAndRatingClick,
+    loading: Boolean
+) {
     Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
         GameRating(rating = rating,
             Modifier
                 .clickable { onSelect.onRatingClick() }
-                .weight(1f, false))
+                .weight(1f, false)
+                .placeholder(loading))
         GameReview(reviewCount,
             Modifier
                 .clickable { onSelect.onReviewClick() }
-                .weight(1f, false))
+                .weight(1f, false)
+                .placeholder(loading))
     }
 }
 
@@ -104,7 +112,8 @@ fun PreviewGameRating() {
             override fun onRatingClick() {}
             override fun onReviewClick() {}
         }
-        GameReviewAndRating("123", "123", click)
+        GameReviewAndRating("123", "123", click, true)
+        GameReviewAndRating("123", "123", click, false)
     }
 }
 

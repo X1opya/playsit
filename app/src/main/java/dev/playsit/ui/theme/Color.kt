@@ -20,3 +20,8 @@ val RatingColorLow = Color.Red
 //
 val DividerColor = Color(0xff2c2c2c)
 val RATING_GREEN = Color(0xFF0fc545)
+//
+val PlaceHolderDefaultLoading = false
+
+val GRADIENT1 = Color(0x001a1a1a)
+val GRADIENT2 = Color(0xcc000000)

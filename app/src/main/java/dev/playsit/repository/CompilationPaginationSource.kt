@@ -14,14 +14,13 @@ class CompilationPaginationSource(private val repository: FeedRepository, val sl
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FeedItem> {
         return try {
             var currentOffset: Int? = params.key ?: 0
-            LoadResult.Page
             val compilations =
                 repository.getCustomCompilation(slug, currentOffset!!)
             Log.d("TEST_LOAD", "key $currentOffset")
             if (compilations?.isLast == true) currentOffset = null
             LoadResult.Page(
                 compilations!!.items,
-                if(currentOffset == 0) null else currentOffset?.minus(10),
+                if(currentOffset != 0) null else currentOffset?.minus(10),
                 currentOffset?.plus(10)
             )
         } catch (e: Exception) {
@@ -30,5 +29,5 @@ class CompilationPaginationSource(private val repository: FeedRepository, val sl
     }
 
     override val keyReuseSupported: Boolean
-        get() = true
+        get() = false
 }

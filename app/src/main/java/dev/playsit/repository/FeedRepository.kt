@@ -35,7 +35,7 @@ class FeedRepository(private val remoteDataSource: ApiService) {
         if (response.isSuccessful) {
             response.body()?.let { return it }
         }
-        throw Exception("Oops... error loading similar games with id = $id")
+        throw Exception("Oops... error loading similar games with id = $id , msg = $")
     }
 
     suspend fun getCustomCompilation(slug: String, offset: Int): Compilation? {

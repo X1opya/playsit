@@ -27,6 +27,13 @@
         <entry key="../../../../layout/compose-model-1623079267204.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1623079269707.xml" value="0.6926174496644295" />
         <entry key="../../../../layout/compose-model-1623081553743.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1624888335994.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1624893469978.xml" value="0.17947635135135134" />
+        <entry key="../../../../layout/compose-model-1624894085116.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1624987770875.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1625062497114.xml" value="0.33240740740740743" />
+        <entry key="../../../../layout/compose-model-1625068268999.xml" value="0.33240740740740743" />
+        <entry key="../../../../layout/compose-model-1625075182148.xml" value="0.33240740740740743" />
         <entry key="../../../../layout/custom_preview.xml" value="0.21302083333333333" />
         <entry key="app/src/main/res/drawable/ic_accept.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/drawable/ic_baseline_crop_square_24.xml" value="0.16197916666666667" />
@@ -40,6 +47,8 @@
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/drawable/ic_rpg.xml" value="0.16614583333333333" />
         <entry key="app/src/main/res/drawable/ic_spinner.xml" value="0.17222222222222222" />
+        <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/activity_player.xml" value="0.16041666666666668" />
       </map>
     </option>
   </component>

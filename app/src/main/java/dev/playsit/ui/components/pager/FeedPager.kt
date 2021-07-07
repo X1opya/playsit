@@ -82,81 +82,18 @@ fun FeedPager(
         }
 
         Divider(color = DividerColor)
-        var contentHeight: MutableState<Dp?> = remember {
-            mutableStateOf(null)
-        }
-        var currentHeight: MutableState<Dp?> = remember {
-            mutableStateOf(null)
-        }
-        val count = remember {
-            mutableStateOf(0)
-        }
 
-        var content1Height: MutableState<Dp?> = remember {
-            mutableStateOf(null)
-        }
-        var current1Height: MutableState<Dp?> = remember {
-            mutableStateOf(null)
-        }
-        val count1 = remember {
-            mutableStateOf(0)
-        }
-
-        val density = LocalDensity.current.density
-//        contentHeight.value = with(LocalDensity.current) {1333.toDp() }
         HorizontalPager(
             state = pagerState,
             Modifier.clipToBounds(),
-//                .then(
-//                    if (count.value == 2 && contentHeight.value != null) {
-//                        Log.d("TEST_SIZE", "HorizontalPager: then ${contentHeight.value}")
-//                        Modifier.height(contentHeight.value!!)
-//                    } else {
-//                        Modifier
-//                    }
-//                ),
             dragEnabled = false,
             verticalAlignment = Alignment.Top
         ) { index ->
             Box {
                 if (index == 0) {
-                    content(index, Modifier.onGloballyPositioned { cord ->
-//                            if(contentHeight.value == null) {
-//                                with(LocalDensity.current) {16.toDp}
-                        val height = (cord.size.height.toFloat() / density).dp
-                        if (count.value == 2 && contentHeight.value == null)
-                            contentHeight.value = height
-                        else if (count.value < 3 && currentHeight.value != height) {
-                            count.value++
-                            currentHeight.value = height
-                        }
-
-                        Log.d(
-                            "TEST_SIZE_2",
-                            "FeedPager: size ${cord.size} count ${count.value} \n contentHeight ${contentHeight.value} currentHeight ${currentHeight.value}"
-                        )
-//                        if (count.value < 1 )
-//                            count.value++
-                    })
+                    content(index, Modifier)
                 } else if (index == 1) {
-                    secondContent(index, Modifier.onGloballyPositioned { cord ->
-//                            if(contentHeight.value == null) {
-//                                with(LocalDensity.current) {16.toDp}
-                        val height = (cord.size.height.toFloat() / density).dp
-                        if (count1.value == 2 && content1Height.value == null)
-                            content1Height.value = height
-                        else if (count.value < 3 && current1Height.value != height) {
-                            count1.value++
-                            current1Height.value = height
-                        }
-
-                        Log.d(
-                            "TEST_SIZE",
-                            "FeedPager: size ${cord.size} count ${count.value} \n contentHeight ${contentHeight.value} currentHeight ${currentHeight.value}"
-                        )
-//                        if (count.value < 1 )
-//                            count.value++
-                    })
+                    secondContent(index, Modifier)
                 }
             }
         }

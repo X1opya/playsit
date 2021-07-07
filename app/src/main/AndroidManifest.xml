@@ -7,16 +7,16 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/launcher_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/launcher_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Playsit">
+        android:theme="@style/Theme.Splash">
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Playsit.NoActionBar">
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +26,9 @@
 
         <activity
             android:name=".ui.modules.ytplayer.YouTubeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

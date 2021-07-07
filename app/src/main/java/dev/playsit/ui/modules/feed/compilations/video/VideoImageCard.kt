@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -28,7 +29,7 @@ import dev.playsit.ui.components.text.GameTitle
 import dev.playsit.ui.theme.UnSelectTabColor
 
 @Composable
-fun VideoImageCard(videoItem: VideoDto, onClick: (String?) -> Unit) {
+fun VideoImageCard(videoItem: VideoDto, modifier: Modifier = Modifier, onClick: (String?) -> Unit) {
     ConstraintLayout(modifier = Modifier.clickable { onClick(videoItem.videoIdentifier) }) {
         val (image, icon, title, desc, duration) = createRefs()
         Image(
@@ -37,10 +38,9 @@ fun VideoImageCard(videoItem: VideoDto, onClick: (String?) -> Unit) {
                 .constrainAs(image) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
-//                    width = Dimension.fillToConstraints
-//                    height = Dimension.fillToConstraints
                 }
                 .size(225.dp, 127.dp)
+                .then(modifier)
                 .clip(RoundedCornerShape(16.dp)),
 
             contentDescription = null,
@@ -93,4 +93,21 @@ fun VideoImageCard(videoItem: VideoDto, onClick: (String?) -> Unit) {
             centerHorizontallyTo(parent)
         })
     }
+}
+
+@Composable
+@Preview
+fun VideoImageCardPreview() {
+    VideoImageCard(object : VideoDto {
+        override val duration: String
+            get() = "123"
+        override val videoIdentifier: String?
+            get() = "videoIdentifier"
+        override val cover: String?
+            get() = "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+        override val formattedAddedDate: String
+            get() = "213"
+        override val name: String
+            get() = "name"
+    }) {}
 }

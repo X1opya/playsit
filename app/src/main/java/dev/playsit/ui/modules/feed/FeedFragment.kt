@@ -7,7 +7,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
@@ -31,17 +30,19 @@ fun FeedFragment(
             .verticalScroll(rememberScrollState())
     ) {
         CustomAppBar(title = stringResource(id = R.string.discoverTitle))
-        AnimatedVisibility(visible = !discoverViewModel._isLoading.collectAsState().value,
-            enter = slideInVertically(
-                initialOffsetY = { 400 }
-            ) + expandVertically(
-                expandFrom = Alignment.Top
-            ) + fadeIn(initialAlpha = 0.3f),
-            exit = slideOutVertically() + shrinkVertically() + fadeOut()) {
-            FeedPager(
-                {_, modifier -> CompilationsFragment(compilations, navController, modifier = modifier) },
-                {_, modifier -> BoardFragment(discoverViewModel, modifier = modifier) }
-            )
-        }
+        val loading = discoverViewModel.isFeedLoaded.collectAsState()
+        FeedPager(
+            { _, modifier ->
+                CompilationsFragment(
+                        compilations,
+                        navController,
+                        modifier = modifier,
+                        loading
+                    )
+            },
+            { _, modifier ->
+                BoardFragment(discoverViewModel, modifier = modifier)
+            }
+        )
     }
 }

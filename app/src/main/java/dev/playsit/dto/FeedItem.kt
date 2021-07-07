@@ -1,12 +1,14 @@
 package dev.playsit.dto
 
 import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
 import dev.playsit.core.utils.millisecondsToTime
 import dev.playsit.core.utils.toReleaseDate
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
+@JsonClass(generateAdapter = true)
 class FeedItem(
     @SerializedName("id")
     override val id: Int,
@@ -17,7 +19,7 @@ class FeedItem(
     @SerializedName("first_release_date")
     val firstReleaseDate: String?,
     @SerializedName("cover")
-    override val cover: String?,
+    override var cover: String?,
     @SerializedName("genres")
     override val genres: List<String>?,
     @SerializedName("platforms")
@@ -28,10 +30,12 @@ class FeedItem(
     val developer: List<String>?,
     @SerializedName("involved_companies")
     val involvedCompanies: List<String>?,
+    @SerializedName("game_videos")
+    val gameVideos: List<GameVideo>?,
     @SerializedName("added")
     val addedDate: String?,
     @SerializedName("duration")
-    private val _duration: Long?,
+    val _duration: Long?,
     @SerializedName("video_identifier")
     override val videoIdentifier: String?,
     @SerializedName("game_id")

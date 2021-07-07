@@ -1,16 +1,18 @@
 package dev.playsit.ui.modules.game
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dev.playsit.core.network.configurations.result.ApiResult
 import dev.playsit.core.network.configurations.result.isSuccess
+import dev.playsit.dto.FeedItem
 import dev.playsit.dto.Game
 import dev.playsit.dto.GameImageConverter
 import dev.playsit.dto.ReviewCollections
@@ -25,47 +28,56 @@ import dev.playsit.ui.components.imageContainers.GameImageCard
 import dev.playsit.ui.components.text.CategoryTitleText
 import dev.playsit.ui.components.text.DefaultGrayText
 import dev.playsit.ui.modules.game.components.*
-import dev.playsit.ui.theme.BaseAppDimen
-import dev.playsit.ui.theme.DividerColor
-import dev.playsit.ui.theme.UnSelectTabColor
+import dev.playsit.ui.theme.*
 
 @Composable
-fun GameDetail(id: Int, navController: NavHostController) {
+fun GameDetail(game: FeedItem, navController: NavHostController) {
     val gameViewModel: GameViewModel = hiltViewModel()
-    val game by gameViewModel.game.observeAsState()
-    val loading = gameViewModel.isLoading.collectAsState()
-    DisposableEffect(key1 = id) {
-        gameViewModel.getGameById(id)
+    val fullGame by gameViewModel.game.observeAsState()
+    DisposableEffect(key1 = game.id) {
+        gameViewModel.getGameById(game.id)
         onDispose {
             gameViewModel.onDestroy()
         }
     }
     Box(modifier = Modifier.fillMaxSize()) {
-        if (loading.value) CircularProgressIndicator(modifier = Modifier.background(Color.Green))
-        game?.let { LaunchScreen(it, gameViewModel, navController) }
+        LaunchScreen(game, fullGame, gameViewModel, navController)
     }
 }
 
 @Composable
 private fun LaunchScreen(
-    game: Game,
+    game: FeedItem,
+    fullGame: Game?,
     gameViewModel: GameViewModel,
     navController: NavHostController
 ) {
+    val loading = gameViewModel.isLoading.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
+        game.gameVideos?.get(0)?.videoIdentifier?.let {
+            BackPlayerView(it)
+        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 25.dp)
+            modifier = Modifier
+//                .background(
+//                    brush = Brush.verticalGradient(
+//                        0.0f to GRADIENT1,
+//                        0.1f to GRADIENT2,
+//                        0.15f to Color.Black,
+//                    )
+//                )
+                .padding(horizontal = 25.dp)
         ) {
-            Spacer(modifier = Modifier.padding(top = 224.dp))
+//            Spacer(modifier = Modifier.padding(top = 224.dp))
             GameImageCard(
                 uri = game.cover,
-                rating = game.ratingCount.toString() ?: game?.rating?.toString()
-                ?: "n/a"
+                rating = fullGame?.ratingCount?.toString() ?: fullGame?.rating?.toString() ?: "n/a",
+                loading = loading.value
             )
             Spacer(modifier = Modifier.padding(top = 25.dp))
             CategoryTitleText(
@@ -74,7 +86,7 @@ private fun LaunchScreen(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.padding(top = 5.dp))
-            DefaultGrayText(text = game.developer[0] ?: "")
+            DefaultGrayText(text = game.developer?.get(0) ?: "")
             Spacer(modifier = Modifier.padding(top = 10.dp))
             Row {
                 val list = GameImageConverter
@@ -95,12 +107,13 @@ private fun LaunchScreen(
             UserActionPanel()
             Spacer(modifier = Modifier.size(25.dp))
             GameReviewAndRating(
-                game.reviewsCount.toString(),
-                game.aggregatedRating.toInt().toString(),
+                fullGame?.reviewsCount.toString(),
+                fullGame?.aggregatedRating?.toInt().toString(),
                 object : OnReviewAndRatingClick {
                     override fun onRatingClick() {}
                     override fun onReviewClick() {}
-                })
+                }, loading.value
+            )
         }
         val reviews = gameViewModel.reviews.collectAsState(initial = null)
         if (reviews.value?.isSuccess == true) {
@@ -120,17 +133,19 @@ private fun LaunchScreen(
                     .background(DividerColor)
             )
         }
-        Column {
-            GameInfoSection(game = game)
-            game.prices?.let { StoreSection(it) }
-        }
-        game.dlcList?.let { DlcSection(it) }
-        game.gameVideos?.takeIf { it.isNotEmpty() }?.let { VideSectionList(it) }
-        Spacer(modifier = Modifier.size(40.dp))
-        game.similarGames?.let {
-            Column(Modifier.background(UnSelectTabColor)) {
-                SimilarGameSection(games = it, navController)
-                Spacer(modifier = Modifier.size(BaseAppDimen))
+        fullGame?.let {
+            Column {
+                GameInfoSection(game = fullGame)
+                fullGame.prices?.let { StoreSection(it) }
+            }
+            fullGame.dlcList?.let { DlcSection(it) }
+            fullGame.gameVideos?.takeIf { it.isNotEmpty() }?.let { VideSectionList(it) }
+            Spacer(modifier = Modifier.size(40.dp))
+            fullGame.similarGames?.let {
+                Column(Modifier.background(UnSelectTabColor)) {
+                    SimilarGameSection(games = it, navController)
+                    Spacer(modifier = Modifier.size(BaseAppDimen))
+                }
             }
         }
     }
