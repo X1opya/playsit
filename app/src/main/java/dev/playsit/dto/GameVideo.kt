@@ -3,6 +3,7 @@ package dev.playsit.dto
 import com.google.gson.annotations.SerializedName
 import dev.playsit.core.utils.millisecondsToTime
 import dev.playsit.core.utils.toReleaseDate
+import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
 data class GameVideo(
@@ -20,7 +21,7 @@ data class GameVideo(
     val type: Any,
     @SerializedName("video_identifier")
     override val videoIdentifier: String
-) : VideoDto {
+) : Serializable, VideoDto {
     override val duration: String
         get() = _duration.millisecondsToTime()
     override val formattedAddedDate: String

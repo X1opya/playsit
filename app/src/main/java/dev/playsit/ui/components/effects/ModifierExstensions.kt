@@ -31,9 +31,6 @@ fun Modifier.placeholder(visible: Boolean, width: Dp? = null, height: Dp? = null
                 ),
                 shape = RoundedCornerShape(16.dp)
             )
-            .then(
-                if (visible && height != null && width != null) Modifier
-                    .width(width)
-                    .height(height) else Modifier
-            )
+            .then(Modifier.then(width?.let { width(it) } ?: Modifier))
+            .then(Modifier.then(height?.let { height(it) } ?: Modifier))
     }

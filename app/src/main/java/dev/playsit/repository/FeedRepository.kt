@@ -6,6 +6,7 @@ import dev.playsit.dto.Compilation
 import dev.playsit.dto.Feed
 import dev.playsit.dto.FeedItem
 import dev.playsit.dto.Game
+import kotlinx.coroutines.delay
 
 class FeedRepository(private val remoteDataSource: ApiService) {
     lateinit var feed: Feed
@@ -47,13 +48,5 @@ class FeedRepository(private val remoteDataSource: ApiService) {
         }
 
         return result
-    }
-
-    suspend fun getCompilationWithOffset(slug: String, offset: Int): Compilation {
-        val response = remoteDataSource.getCompilationWithOffset(slug, offset)
-        if (response.isSuccessful) {
-            response.body()?.let { return it }
-        }
-        throw Exception("Oops... error loading compilation with slug = $slug")
     }
 }

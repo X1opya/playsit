@@ -1,6 +1,5 @@
 package dev.playsit.ui.modules.game
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -10,9 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,10 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dev.playsit.core.network.configurations.result.ApiResult
 import dev.playsit.core.network.configurations.result.isSuccess
-import dev.playsit.dto.FeedItem
-import dev.playsit.dto.Game
-import dev.playsit.dto.GameImageConverter
-import dev.playsit.dto.ReviewCollections
+import dev.playsit.dto.*
 import dev.playsit.ui.components.imageContainers.GameImageCard
 import dev.playsit.ui.components.text.CategoryTitleText
 import dev.playsit.ui.components.text.DefaultGrayText
@@ -64,16 +58,8 @@ private fun LaunchScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-//                .background(
-//                    brush = Brush.verticalGradient(
-//                        0.0f to GRADIENT1,
-//                        0.1f to GRADIENT2,
-//                        0.15f to Color.Black,
-//                    )
-//                )
                 .padding(horizontal = 25.dp)
         ) {
-//            Spacer(modifier = Modifier.padding(top = 224.dp))
             GameImageCard(
                 uri = game.cover,
                 rating = fullGame?.ratingCount?.toString() ?: fullGame?.rating?.toString() ?: "n/a",
@@ -81,27 +67,15 @@ private fun LaunchScreen(
             )
             Spacer(modifier = Modifier.padding(top = 25.dp))
             CategoryTitleText(
-                text = game.name ?: "",
+                text = game.name,
                 maxLines = 3,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.padding(top = 5.dp))
             DefaultGrayText(text = game.developer?.get(0) ?: "")
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Row {
-                val list = GameImageConverter
-                    .getPlatformIdList(game.uniquePlatforms ?: emptyList())
-                list.forEachIndexed { index, item ->
-                    Icon(
-                        painter = painterResource(id = item),
-                        null,
-                        tint = Color.Unspecified,
-                        modifier = Modifier
-                            .padding(end = 12.dp)
-                            .size(20.dp)
-                    )
-                    if (index != list.size - 1) Spacer(modifier = Modifier.size(12.dp))
-                }
+            game.uniquePlatforms.let {
+                Spacer(modifier = Modifier.padding(top = 10.dp))
+                GamePlatformIcons(it)
             }
             Spacer(modifier = Modifier.size(30.dp))
             UserActionPanel()
@@ -147,6 +121,25 @@ private fun LaunchScreen(
                     Spacer(modifier = Modifier.size(BaseAppDimen))
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun GamePlatformIcons(platforms: List<Platform>) {
+    Row {
+        val list = GameImageConverter
+            .getPlatformIdList(platforms)
+        list.forEachIndexed { index, item ->
+            Icon(
+                painter = painterResource(id = item),
+                null,
+                tint = Color.Unspecified,
+                modifier = Modifier
+                    .padding(end = 12.dp)
+                    .size(20.dp)
+            )
+            if (index != list.size - 1) Spacer(modifier = Modifier.size(12.dp))
         }
     }
 }

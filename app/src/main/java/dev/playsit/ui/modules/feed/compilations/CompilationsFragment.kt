@@ -32,7 +32,9 @@ fun CompilationsFragment(
         } else {
             compilations.value?.forEachIndexed { index, list ->
                 if (list.type == "games") {
-                    CompilationList(list, index == 0) {
+                    CompilationList(list, index == 0, onCategoryClick = {
+                        navController.navigate(Screens.toGameList(index = index))
+                    }) {
                         navController.currentBackStackEntry?.arguments =
                             Bundle().apply {
                                 putSerializable("game", it)
@@ -40,8 +42,8 @@ fun CompilationsFragment(
                         navController.navigate(Screens.toGameScreen(it))
                     }
                 } else if (list.type == "videos") {
-                    VideCompilationList(list) { videoId ->
-                        videoId?.let { YouTubeActivity.navigateToPlayer(context, it) }
+                    VideCompilationList(list) {
+                        navController.navigate(Screens.toVideoList())
                     }
                 }
                 Spacer(modifier = Modifier.size(40.dp))

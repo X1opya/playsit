@@ -29,7 +29,7 @@ import dev.playsit.ui.components.text.GameTitle
 import dev.playsit.ui.theme.UnSelectTabColor
 
 @Composable
-fun VideoImageCard(videoItem: VideoDto, modifier: Modifier = Modifier, onClick: (String?) -> Unit) {
+fun VideoImageCard(videoItem: VideoDto, modifier: Modifier = Modifier.size(225.dp, 127.dp), onClick: (String?) -> Unit) {
     ConstraintLayout(modifier = Modifier.clickable { onClick(videoItem.videoIdentifier) }) {
         val (image, icon, title, desc, duration) = createRefs()
         Image(
@@ -39,7 +39,6 @@ fun VideoImageCard(videoItem: VideoDto, modifier: Modifier = Modifier, onClick: 
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 }
-                .size(225.dp, 127.dp)
                 .then(modifier)
                 .clip(RoundedCornerShape(16.dp)),
 

@@ -45,17 +45,6 @@ class FeedItem(
     var isHeader: Boolean = false
 ) : Serializable, VideoDto, GameCardDto {
 
-    val formattedReleaseDate: String
-        get() {
-            firstReleaseDate?.let { dateString ->
-                val date = parseFormat.parse(dateString)
-                date?.let {
-                    return formatter.format(it)
-                }
-            }
-            return ""
-        }
-
     override val formattedAddedDate: String
         get() = addedDate.toReleaseDate()
 
@@ -141,11 +130,6 @@ class FeedItem(
             }
             return uniquePlatforms
         }
-
-    companion object {
-        private val parseFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss'Z'")
-        private val formatter = SimpleDateFormat("d MMMM")
-    }
 }
 
 sealed class Platform {

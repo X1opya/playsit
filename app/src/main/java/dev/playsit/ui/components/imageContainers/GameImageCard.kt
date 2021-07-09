@@ -48,13 +48,20 @@ fun GameImageCard(
     }
 }
 
-fun getGameImageWidth(imageType: ImageType) =
-    if (imageType == ImageType.Big) 225.dp else 143.dp
+fun getGameImageWidth(imageType: ImageType) = when(imageType) {
+    ImageType.Big -> 225.dp
+    ImageType.Small -> 143.dp
+    ImageType.Mini -> 113.dp
+}
 
-fun getGameImageHeight(imageType: ImageType) =
-    if (imageType == ImageType.Big) 300.dp else 190.dp
+fun getGameImageHeight(imageType: ImageType) = when(imageType) {
+    ImageType.Big -> 300.dp
+    ImageType.Small -> 190.dp
+    ImageType.Mini -> 158.dp
+}
 
 enum class ImageType {
     Big,
-    Small
+    Small,
+    Mini
 }

@@ -1,13 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        compose_version = '1.0.0-beta06'
+        compose_version = '1.0.0-rc01'
         hilt_version = '2.37'
         room_version = '2.3.0'
         detekt_version = '1.16.0'
         retrofit_version = '2.9.0'
         paging_version = '2.1.2'
-        accomponist_version = '0.12.0'
+        accomponist_version = '0.13.0'
     }
     repositories {
         google()

@@ -78,12 +78,13 @@ fun GenreCardList(genres: List<String>, modifier: Modifier) {
     Row(
         horizontalArrangement = Arrangement.Start,
         modifier = Modifier
-            .fillMaxWidth(0.5f)
             .then(modifier)
     ) {
-        genres.forEach { genre ->
-            GenreCard(genre = genre)
-            Spacer(modifier = Modifier.padding(5.dp))
+        for(i in 0..1) {
+            genres.getOrNull(i)?.let {
+                GenreCard(genre = it)
+                Spacer(modifier = Modifier.padding(5.dp))
+            }
         }
     }
 }
