@@ -23,7 +23,6 @@ class PagingWithOffset<OUT : Any, IN, MODEL : BaseOffsetModel<OUT, IN>>(
             LoadResult.Page
             val data =
                 model.invoke(currentOffset!!, param)
-            Log.d("TEST_LOAD", "key $currentOffset")
             if (data is ApiResult.Success && !data.value.isNullOrEmpty()) {
                 LoadResult.Page(
                     data.value!!,

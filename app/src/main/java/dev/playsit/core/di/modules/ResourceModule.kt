@@ -1,4 +1,4 @@
-package dev.playsit.core.di
+package dev.playsit.core.di.modules
 
 import android.content.Context
 import dagger.Binds

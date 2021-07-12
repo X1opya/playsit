@@ -19,6 +19,7 @@ class CompilationProvider(
     private val description = compilation.description
     val id = compilation.id
     val type = compilation.type
+    val slug = compilation.slug
     var shitCatch = false
     var loading: Boolean = true
         set(value) {

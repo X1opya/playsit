@@ -93,7 +93,6 @@ private fun setupPLayer(player: YouTubePlayerView, videoId: String) {
 
             override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
                 super.onCurrentSecond(youTubePlayer, second)
-                Log.d("TEST_DURA", "dura: $dura seconds = $second")
                 if (dura.toInt() - 10 == second.toInt()) youTubePlayer.seekTo(0f)
             }
         })

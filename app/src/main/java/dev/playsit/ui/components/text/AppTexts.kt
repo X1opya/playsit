@@ -42,11 +42,12 @@ fun CategoryTitleText(
     text: String,
     modifier: Modifier = Modifier,
     maxLines: Int = 1,
-    textAlign: TextAlign? = null
+    textAlign: TextAlign? = null,
+    fontSize: TextUnit? = null,
 ) {
     DefaultBoldText(
         text = text,
-        fontSize = 25.sp,
+        fontSize = fontSize ?: 25.sp,
         modifier = Modifier.then(modifier),
         maxLines = maxLines,
         textAlign = textAlign
@@ -104,6 +105,6 @@ fun DefaultGrayText(
 }
 
 @Composable
-fun DescriptionText(text: String, modifier: Modifier = Modifier) {
-    DefaultGrayText(text = text, fontSize = 14.sp, modifier = Modifier.then(modifier))
+fun DescriptionText(text: String, modifier: Modifier = Modifier, fontSize: TextUnit? = null) {
+    DefaultGrayText(text = text, fontSize = fontSize ?: 14.sp, modifier = Modifier.then(modifier))
 }

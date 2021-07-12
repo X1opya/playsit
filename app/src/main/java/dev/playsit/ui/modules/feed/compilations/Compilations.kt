@@ -165,8 +165,7 @@ fun CategoryTitle(
     modifier: Modifier = Modifier
 ) {
     Column(
-        Modifier
-            .then(modifier)
+        Modifier.then(modifier)
     ) {
         ConstraintLayout(Modifier.fillMaxWidth()) {
             val (titleView, imageView) = createRefs()

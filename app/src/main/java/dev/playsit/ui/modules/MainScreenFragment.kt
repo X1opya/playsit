@@ -17,6 +17,8 @@ import androidx.navigation.compose.navArgument
 import com.google.gson.Gson
 import com.squareup.moshi.Moshi
 import dev.playsit.core.navigations.Screens
+import dev.playsit.dto.Compilation.Companion.SLUG_LATEST
+import dev.playsit.dto.Compilation.Companion.SLUG_UPCOMING
 import dev.playsit.dto.FeedItem
 import dev.playsit.ui.modules.feed.DiscoverViewModel
 import dev.playsit.ui.modules.feed.FeedFragment
@@ -27,7 +29,9 @@ import dev.playsit.ui.modules.videolist.VideoListFragment
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen(discoverViewModel: DiscoverViewModel, navController: NavHostController) {
-    Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.Black)) {
         val compilations =
             discoverViewModel.compilations.observeAsState()
         NavHost(navController = navController, startDestination = "mainScreen") {
@@ -54,13 +58,15 @@ fun MainScreen(discoverViewModel: DiscoverViewModel, navController: NavHostContr
                     }
             }
             composable("GameList/{index}",
-                arguments = listOf(navArgument("index") { type = NavType.IntType })) {
+                arguments = listOf(navArgument("index") { type = NavType.IntType })
+            ) {
                 it.arguments?.getInt("index")?.let { index ->
                     discoverViewModel.compilations.value?.get(index)
                         ?.let { videoProvider ->
                             GameListFragment(
                                 videoProvider,
-                                navController = navController, true
+                                navController = navController,
+                                videoProvider.slug == SLUG_UPCOMING || videoProvider.slug == SLUG_LATEST
                             )
                         }
                 }

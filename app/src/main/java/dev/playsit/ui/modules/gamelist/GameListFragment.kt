@@ -1,5 +1,6 @@
 package dev.playsit.ui.modules.gamelist
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -34,7 +35,7 @@ fun GameListFragment(
     hasHeader: Boolean
 ) {
     val items = lazyGameProvider.lazyFeedItems.collectAsLazyPagingItems()
-    val subTitle = stringResource(id = R.string.last7days)
+    val subTitle = lazyGameProvider.getSubTitle()//stringResource(id = R.string.last7days)
     var lastGame: FeedItem? = null
     ListWithTitle(
         title = object : Title {
@@ -46,12 +47,15 @@ fun GameListFragment(
     ) {
         for (index in 0 until items.itemCount) {
             val current = items.peek(index)
+            Log.d("TEST_HEADERS", "date ${current?.firstReleaseDate.toReadableDate()} hasHeader $hasHeader")
             if (current?.firstReleaseDate.toReadableDate() !=
-                lastGame?.firstReleaseDate?.toReadableDate()
+                lastGame?.firstReleaseDate?.toReadableDate() && hasHeader
             ) {
                 stickyHeader {
                     GameStickyHeader(current?.firstReleaseDate.toReadableDate())
                 }
+            } else if(index != 0) stickyHeader {
+                Spacer(modifier = Modifier.size(25.dp))
             }
             item {
                 val game = items.getAsState(index)
@@ -61,7 +65,7 @@ fun GameListFragment(
                         Spacer(modifier = Modifier.size(20.dp))
                         Column(modifier = Modifier.fillMaxWidth()) {
                             GameTitle(it.name)
-                            Spacer(modifier = Modifier.size(20.dp))
+                            Spacer(modifier = Modifier.size(5.dp))
                             DefaultGrayText(it.publisher?.get(0) ?: "")
                             it.uniquePlatforms.let {
                                 Spacer(modifier = Modifier.size(20.dp))
@@ -81,6 +85,11 @@ fun GameListFragment(
     }
 }
 
+enum class TITLE_TYPE {
+    RELEASE,
+
+}
+
 @Composable
 fun GameStickyHeader(title: String) {
     Box(
@@ -89,7 +98,8 @@ fun GameStickyHeader(title: String) {
             .fillMaxWidth()
             .background(
                 Color.Black
-            ).padding(vertical = 15.dp)
+            )
+            .padding(vertical = 15.dp)
     ) {
         DefaultGrayText(text = title)
     }

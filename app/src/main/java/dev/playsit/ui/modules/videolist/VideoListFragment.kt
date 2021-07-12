@@ -41,9 +41,9 @@ fun VideoListFragment(lazyVideoProvider: CompilationProvider, navController: Nav
                         .fillMaxWidth()
                         .height(174.dp)
                 )
+                Spacer(modifier = Modifier.size(25.dp))
             }
         }
-
     }
 }
 
