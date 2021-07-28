@@ -15,7 +15,7 @@ data class Game(
     @SerializedName("cover")
     val cover: String,
     @SerializedName("developer")
-    val developer: List<String>,
+    val developer: List<String>?,
     @SerializedName("first_release_date")
     val firstReleaseDate: String?,
     @SerializedName("game_modes")

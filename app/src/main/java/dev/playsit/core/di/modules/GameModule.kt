@@ -3,11 +3,10 @@ package dev.playsit.core.di.modules
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import dev.playsit.core.network.ApiService
-import dev.playsit.ui.modules.game.model.GameRepository
-import dev.playsit.ui.modules.game.model.ReviewsUseCase
+import dev.playsit.ui.screens.game.model.GameRepository
+import dev.playsit.ui.screens.game.model.ReviewsUseCase
 import javax.inject.Singleton
 
 @Module

@@ -19,6 +19,7 @@ class ResourceModule {
     @Singleton
     fun provideResource(context: Context) = ResourceProviderImpl(context)
 }
+
 @Module
 @InstallIn(SingletonComponent::class)
 interface ResourceBinder {

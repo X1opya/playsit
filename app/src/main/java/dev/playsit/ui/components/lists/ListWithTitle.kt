@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -24,7 +23,7 @@ import dev.playsit.R
 import dev.playsit.dto.FeedItem
 import dev.playsit.ui.components.text.CategoryTitleText
 import dev.playsit.ui.components.text.DescriptionText
-import dev.playsit.ui.modules.feed.compilations.utils.Title
+import dev.playsit.ui.screens.feed.compilations.utils.Title
 import dev.playsit.ui.theme.BaseAppDimen
 import dev.playsit.ui.theme.DividerColor
 import me.onebone.toolbar.CollapsingToolbarScaffold

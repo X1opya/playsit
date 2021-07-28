@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 apply from: 'detekt.gradle'
@@ -42,7 +43,7 @@ android {
         viewBinding true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "1.0.0-rc01"
+        kotlinCompilerExtensionVersion compose_version
         kotlinCompilerVersion '1.5.10'
     }
 }
@@ -57,18 +58,18 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     //compose
-    implementation 'androidx.compose.ui:ui:1.0.0-rc01'
-    implementation 'androidx.compose.material:material:1.0.0-rc01'
-    implementation 'androidx.compose.ui:ui-tooling:1.0.0-rc01'
-    implementation 'androidx.compose.foundation:foundation:1.0.0-rc01'
-    implementation 'androidx.compose.material:material-icons-core:1.0.0-rc01'
-    implementation 'androidx.compose.material:material-icons-extended:1.0.0-rc01'
-    implementation 'androidx.compose.ui:ui-util:1.0.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-rc01'
-    implementation 'androidx.compose.runtime:runtime:1.0.0-rc01'
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.material:material-icons-core:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.ui:ui-util:$compose_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.0-rc01'
+    implementation 'androidx.activity:activity-compose:1.3.0-rc02'
     implementation "com.google.accompanist:accompanist-pager:$accomponist_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
 //    //compose paging
@@ -82,11 +83,15 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.0-rc01'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    api 'com.google.dagger:dagger-android:2.38'
+    api 'com.google.dagger:dagger-android-support:2.38'
+    kapt 'com.google.dagger:dagger-android-processor:2.38'
 
     // For instrumentation tests
     androidTestImplementation  "com.google.dagger:hilt-android-testing:$hilt_version"
@@ -117,11 +122,18 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
     implementation "com.squareup.moshi:moshi:1.12.0"
     // view binding delegate
-    implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.6'
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.7'
 
     // youtube
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.facebook.android:facebook-android-sdk:11.1.1'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    implementation "me.onebone:toolbar-compose:2.1.0"
+    implementation 'me.onebone:toolbar-compose:2.1.1'
 }

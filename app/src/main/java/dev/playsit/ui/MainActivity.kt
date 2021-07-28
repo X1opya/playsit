@@ -1,23 +1,27 @@
 package dev.playsit.ui
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.*
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.playsit.ui.modules.MainScreen
-import dev.playsit.ui.modules.feed.DiscoverViewModel
+import dev.playsit.auth.GoogleAuth
+import dev.playsit.ui.screens.MainScreen
+import dev.playsit.ui.screens.feed.DiscoverViewModel
 import dev.playsit.ui.theme.PlaysitTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val discoverViewModel by viewModels<DiscoverViewModel>()
+    private val googleAuth by lazy { GoogleAuth(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        googleAuth.auth()
         setContent {
             PlaysitTheme {
                 Surface(
@@ -31,6 +35,11 @@ class MainActivity : ComponentActivity() {
             }
         }
         discoverViewModel.getFeed()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        googleAuth.onResult(requestCode, data)
     }
 }
 

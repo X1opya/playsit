@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "443466330985",
+    "project_id": "playsit-bb758",
+    "storage_bucket": "playsit-bb758.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443466330985:android:af51635bb220def50b43f8",
+        "android_client_info": {
+          "package_name": "dev.playsit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443466330985-0cc93lce67jd8o38vq7fiepduqtgtkep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.playsit",
+            "certificate_hash": "fddb2fae02642129edc666ea693aed1b74a7d8e9"
+          }
+        },
+        {
+          "client_id": "443466330985-1jdg2flgdq17p3ndsu63iec5uc2fgcdb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzgaG6u98DEM9quAldKE2hRU60oswIFGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443466330985-1jdg2flgdq17p3ndsu63iec5uc2fgcdb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

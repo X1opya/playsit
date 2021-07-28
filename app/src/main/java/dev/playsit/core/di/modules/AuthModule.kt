@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AuthModule {
+internal object AuthModule {
 
     @Provides
     @Singleton
@@ -19,5 +19,5 @@ class AuthModule {
 
     @Provides
     @Singleton
-    fun provideToken(authManager: AuthManager) = LogoutManager(authManager)
+    fun provideLogoutManager(authManager: AuthManager) = LogoutManager(authManager)
 }

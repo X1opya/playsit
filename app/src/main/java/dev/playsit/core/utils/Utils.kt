@@ -1,10 +1,8 @@
 package dev.playsit.core.utils
 
 import androidx.lifecycle.*
-import dev.playsit.dto.FeedItem
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
-
 
 private val parseFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss'Z'")
 private val formatter = SimpleDateFormat("d MMMM")
@@ -17,6 +15,10 @@ fun String?.toReadableDate(): String {
     if (this == null) return ""
     val date = parseFormat.parse(this)
     return SimpleDateFormat("MMM dd, yyyy").format(date)
+}
+
+fun String?.toReadableDateOrNA(): String {
+    return if(this.isNullOrEmpty()) "n/a" else this.toReadableDate()
 }
 
 fun Long?.millisecondsToTime(): String {
